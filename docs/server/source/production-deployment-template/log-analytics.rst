@@ -172,8 +172,7 @@ Then see `Microsoft's instructions to obtain your workspace ID and key
 <https://docs.microsoft.com/en-us/azure/container-service/container-service-kubernetes-oms#obtain-your-workspace-id-and-key>`_ (via the OMS Portal).
 
 Once you have the workspace id and key, you can include them in the following
-YAML file (:download:`oms-daemonset.yaml
-<../../../../k8s/logging-and-monitoring/oms-daemonset.yaml>`):
+YAML file:
 
 .. code-block:: yaml
 
