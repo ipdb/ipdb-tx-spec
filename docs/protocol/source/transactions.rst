@@ -33,8 +33,8 @@ Here's how one computes the ``id`` using Python:
 
 1. Build a Python dictionary containing ``version``, ``inputs``, ``outputs``, ``operation``, ``asset``, ``metadata`` and their values.
 2. In each of the inputs, replace the value of each ``fulfillment`` with ``null``.
-3. Serialize that dictionary. See the page about Dictionary Serialization.
-4. Compute the SHA3-256 hash of that to get the transaction ID. See the page about Computing Hashes.
+3. Serialize that dictionary as described in :ref:`the page about dictionary serialization <Serialization>`.
+4. Compute the SHA3-256 hash of that to get the transaction ID. See :ref:`the page about computing hashes <Computing Hashes>`.
 
 
 version
@@ -49,22 +49,22 @@ the only allowed value of ``"version"`` is ``"1.0"``.
 inputs
 ^^^^^^
 
-A list of inputs.
+A list of transaction inputs.
 Each input spends/transfers a previous output by satisfying/fulfilling
 the crypto-conditions on that output.
-See the page about Inputs.
 A CREATE transaction must have exactly one input (i.e. == 1).
 A TRANSFER transaction must have at least one input (i.e. ≥ 1).
+See :ref:`the page about transaction inputs <Transaction Inputs>`.
 
 
 outputs
 ^^^^^^^
 
-A list of outputs.
+A list of transaction outputs.
 Each output indicates the crypto-conditions which must be satisfied
 by anyone wishing to spend/transfer that output.
 It also indicates the number of shares of the asset tied to that output.
-See the page about Outputs.
+See :ref:`the page about transaction outputs <Transaction Outputs>`.
 
 
 operation
@@ -79,7 +79,7 @@ the one in the GENESIS block).
 .. note::
 
    The ``"GENESIS"`` transaction might be deprecated in future versions
-   of the IPDB Protocol.
+   of the protocol.
 
 
 asset
@@ -87,7 +87,7 @@ asset
 
 A JSON object for the asset associated with the transaction.
 (A transaction can only be associated with one asset.)
-See the page about Assets.
+See :ref:`the page about assets <Assets>`.
 
 
 metadata
@@ -142,5 +142,6 @@ Here's an example transaction:
     }
 
 
-There are more example transactions in the HTTP API documentation
+There are more example transactions
+in :ref:`the HTTP API docs <HTTP API>`
 and the docs of various drivers.

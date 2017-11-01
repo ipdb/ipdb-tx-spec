@@ -6,3 +6,10 @@ The IPDB Protocol
 
    introduction
    transactions
+   inputs
+   outputs
+   assets
+   serialization
+   computing-hashes
+   http-api
+   
