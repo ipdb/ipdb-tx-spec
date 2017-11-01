@@ -1,9 +1,7 @@
-Transactions
-============
+The Transaction Model
+=====================
 
-A transaction is a JSON object
-with the following top-level keys (also called names or fields),
-all of which are required:
+A transaction has the following structure:
 
 .. code-block:: json
 
@@ -17,130 +15,48 @@ all of which are required:
         "metadata": {"<Arbitrary transaction metadata>"}
     }
 
-You may wonder where the transaction signatures are.
-They're in the inputs.
+Here's some explanation of the contents:
 
+- **id**: The ID of the transaction and also the hash of the transaction (loosely speaking). See below for an explanation of how it's computed. It's also the database primary key.
 
-Keys
-----
+- **version**: The version-number of :ref:`the transaction schema <Transaction Schema>`. As of BigchainDB Server 1.0.0, the only allowed value is ``"1.0"``.
 
-id
-^^
+- **inputs**: List of inputs.
+  Each input spends/transfers a previous output by satisfying/fulfilling
+  the crypto-conditions on that output.
+  A CREATE transaction should have exactly one input.
+  A TRANSFER transaction should have at least one input (i.e. ≥1).
+  For more details, see the subsection about :ref:`inputs <Inputs>`.
 
-The transaction ID and also the hash of the transaction (loosely speaking).
-It's a string.
-Here's how one computes the ``id`` using Python:
+- **outputs**: List of outputs.
+  Each output indicates the crypto-conditions which must be satisfied
+  by anyone wishing to spend/transfer that output.
+  It also indicates the number of shares of the asset tied to that output.
+  For more details, see the subsection about :ref:`outputs <Outputs>`.
 
-1. Build a Python dictionary containing ``version``, ``inputs``, ``outputs``, ``operation``, ``asset``, ``metadata`` and their values.
-2. In each of the inputs, replace the value of each ``fulfillment`` with ``null``.
-3. Serialize that dictionary. See the page about Dictionary Serialization.
-4. Compute the SHA3-256 hash of that to get the transaction ID. See the page about Computing Hashes.
+- **operation**: A string indicating what kind of transaction this is,
+  and how it should be validated.
+  It can only be ``"CREATE"``, ``"TRANSFER"`` or ``"GENESIS"``
+  (but there should only be one transaction whose operation is ``"GENESIS"``:
+  the one in the GENESIS block).
 
+- **asset**: A JSON document for the asset associated with the transaction.
+  (A transaction can only be associated with one asset.)
+  See :ref:`the page about the asset model <The Asset Model>`.
 
-version
-^^^^^^^
+- **metadata**: User-provided transaction metadata.
+  It can be any valid JSON document, or ``null``.
 
-The version-number of the transaction schema.
-It's a string.
-In version 1.0 of the IPDB Protocol,
-the only allowed value of ``"version"`` is ``"1.0"``.
+**How the transaction ID is computed.**
+1) Build a Python dictionary containing ``version``, ``inputs``, ``outputs``, ``operation``, ``asset``, ``metadata`` and their values, 
+2) In each of the inputs, replace the value of each ``fulfillment`` with ``null``,
+3) :ref:`Serialize <JSON Serialization>` that dictionary,
+4) The transaction ID is just :ref:`the SHA3-256 hash <Hashes>` of the serialized dictionary.
 
+**About signing the transaction.**
+Later, when we get to the models for the block and the vote, we'll see that both include a signature (from the node which created it). You may wonder why transactions don't have signatures… The answer is that they do! They're just hidden inside the ``fulfillment`` string of each input. What gets signed (as of version 1.0.0) is everything inside the transaction, including the ``id``, but the value of each ``fulfillment`` is replaced with ``null``.
 
-inputs
-^^^^^^
-
-A list of inputs.
-Each input spends/transfers a previous output by satisfying/fulfilling
-the crypto-conditions on that output.
-See the page about Inputs.
-A CREATE transaction must have exactly one input (i.e. == 1).
-A TRANSFER transaction must have at least one input (i.e. ≥ 1).
-
-
-outputs
-^^^^^^^
-
-A list of outputs.
-Each output indicates the crypto-conditions which must be satisfied
-by anyone wishing to spend/transfer that output.
-It also indicates the number of shares of the asset tied to that output.
-See the page about Outputs.
-
-
-operation
-^^^^^^^^^
-
-A string indicating what kind of transaction this is,
-and how it should be validated.
-The allowed values are ``"CREATE"``, ``"TRANSFER"`` and ``"GENESIS"``
-(but there should only be one transaction whose operation is ``"GENESIS"``:
-the one in the GENESIS block).
-
-.. note::
-
-   The ``"GENESIS"`` transaction might be deprecated in future versions
-   of the IPDB Protocol.
-
-
-asset
-^^^^^
-
-A JSON object for the asset associated with the transaction.
-(A transaction can only be associated with one asset.)
-See the page about Assets.
-
-
-metadata
-^^^^^^^^
-
-User-provided transaction metadata.
-It can be any valid JSON object, or ``null``.
-
-
-Examples
---------
-
-Here's an example transaction:
-
-.. code-block:: json
-
-    {
-        "id": "0e7a9a9047fdf39eb5ead7170ec412c6bffdbe8d7888966584b4014863e03518",
-        "version": "1.0",
-        "inputs": [
-            {
-                "fulfillment": "pGSAIL3aH9oajqk9K5LERXeCNtT-rm_saYXg6IIjlBfWNCLOgUAVgaGMUNF4rKVWeFmGphwJls45cZxttqa-9UKfSGOlLS_80dwsfa3hIo9dC00ojV1xeOGR6AAxU7BIyhJ3j6sH",
-                "fulfills": null,
-                "owners_before": [
-                    "Dn6xz1F9Toy5qbaZUASsvTAUB78HEHs5YPrx6Pd5yu5P"
-                ]
-            }
-        ],
-        "outputs": [
-            {
-                "amount": "1",
-                "condition": {
-                    "uri": "ni:///sha-256;CNXDAYaEJD1l0hO21ZpLIdjrWZIeE2V9xxuNcZ10Lo8?fpt=ed25519-sha-256&cost=131072",
-                    "details": {
-                        "public_key": "Dn6xz1F9Toy5qbaZUASsvTAUB78HEHs5YPrx6Pd5yu5P",
-                        "type": "ed25519-sha-256"
-                    }
-                },
-                "public_keys": [
-                    "Dn6xz1F9Toy5qbaZUASsvTAUB78HEHs5YPrx6Pd5yu5P"
-                ]
-            }
-        ],
-        "operation": "CREATE",
-        "asset": {
-            "data": {
-                "time": "09:01:01 10/30/17 CET",
-                "type": "test asset"
-            }
-        },
-        "metadata": null
-    }
-
-
-There are more example transactions in the HTTP API documentation
-and the docs of various drivers.
+There are example BigchainDB transactions in
+:ref:`the HTTP API documentation <The HTTP Client-Server API>`
+and
+`the Python Driver documentation <https://docs.bigchaindb.com/projects/py-driver/en/latest/usage.html>`_.
