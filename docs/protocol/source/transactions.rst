@@ -1,9 +1,10 @@
 Transactions
 ============
 
-A transaction is a JSON object
-with the following top-level keys (also called names or fields),
-all of which are required:
+A transaction is a JSON object with a particular schema,
+as outlined in this page and subsequent pages.
+A transaction must contain the following top-level keys
+(also called names or fields):
 
 .. code-block:: json
 
@@ -29,12 +30,12 @@ id
 
 The transaction ID and also the hash of the transaction (loosely speaking).
 It's a string.
-Here's how one computes the ``id`` using Python:
+Here's how to compute the ``id``:
 
-1. Build a Python dictionary containing ``version``, ``inputs``, ``outputs``, ``operation``, ``asset``, ``metadata`` and their values.
-2. In each of the inputs, replace the value of each ``fulfillment`` with ``null``.
-3. Serialize that dictionary as described in :ref:`the page about dictionary serialization <Serialization>`.
-4. Compute the SHA3-256 hash of that to get the transaction ID. See :ref:`the page about computing hashes <Computing Hashes>`.
+1. Construct an :term:`associative array` containing ``version``, ``inputs``, ``outputs``, ``operation``, ``asset``, ``metadata`` (but not ``id``) and their values.
+2. In each of the inputs, replace the value of each ``fulfillment`` with ``null`` or the equivalent of ``null`` in your programming language.
+3. Serialize the result of step 2. See :ref:`the page about serialization <Serialization>`.
+4. Compute the SHA3-256 hash of that to get the transaction ID (``id``). See :ref:`the page about computing hashes <Computing Hashes>`.
 
 
 version
@@ -42,7 +43,7 @@ version
 
 The version-number of the transaction schema.
 It's a string.
-In version 1.0 of the IPDB Protocol,
+In version 1.0 of the protocol,
 the only allowed value of ``"version"`` is ``"1.0"``.
 
 
