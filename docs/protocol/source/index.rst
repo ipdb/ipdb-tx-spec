@@ -12,7 +12,7 @@ The IPDB Protocol
    assets
    json-serialization
    string-to-bytes
-   computing-hashes
+   crypto-hashes
    crypto-keys
    crypto-sigs
    http-api

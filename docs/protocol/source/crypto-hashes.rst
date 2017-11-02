@@ -1,5 +1,5 @@
-Computing Hashes
-================
+Cryptographic Hashes
+====================
 
 The IPDB Protocol uses NIST-standard SHA3-256 hashes.
 
@@ -9,10 +9,12 @@ The IPDB Protocol uses NIST-standard SHA3-256 hashes.
    Older SHA3 libraries might use the old suffix,
    so make sure you use an up-to-date library when calculating SHA3-256 hashes.
 
-A SHA3-256 hash can be represented as a sequence of 256 bits or 32 bytes
-but for the purposes of the IPDB Protocol,
-you should represent them as a hexadecimal (Base16) string
-(i.e. a sequence of hexadecimal digits: 0–9 and a–f).
+A SHA3-256 hash can be represented as a sequence of 256 bits, 32 bytes,
+or many other ways.
+When representing hashes as strings
+(e.g. inside :ref:`transactions <Transactions>`),
+the IPDB Protocol represents them with a hexadecimal (Base16) encoding:
+a sequence of hexadecimal digits (0–9 and a–f).
 Every byte can be represented by two hexadecimal digits
 so the hexadecimal string should have 64 characters.
 An example is
