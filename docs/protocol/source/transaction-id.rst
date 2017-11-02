@@ -10,6 +10,6 @@ The exact steps and intermediate data types may differ in your programming langu
 3. In each of the inputs, replace the value of each ``fulfillment`` with the equivalent of ``null`` in your programming language.
 4. Convert that to a standard Unicode JSON string. See the page about :ref:`JSON serialization and deserialization <JSON Serialization & Deserialization>`.
 5. Convert that to bytes. See the page about :ref:`converting strings to bytes <Converting Strings to Bytes>`.
-6. Compute the SHA3-256 hash of that and convert the result to a hexadecimal string. See the page about :ref:`computing hashes <Computing Hashes>`.
+6. Compute the SHA3-256 hash of that and represent the hash as a hexadecimal (Base16) string. See the page about :ref:`computing hashes <Computing Hashes>`.
 
-The final (hex) string is the transaction ID.
+The final (hex-encoded) string is the transaction ID.

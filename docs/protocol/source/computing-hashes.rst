@@ -11,9 +11,9 @@ The IPDB Protocol uses NIST-standard SHA3-256 hashes.
 
 A SHA3-256 hash can be represented as a sequence of 256 bits or 32 bytes
 but for the purposes of the IPDB Protocol,
-you should represent them as a hexadecimal string
-(i.e. a sequence of hexadecimal digits).
-Every byte can be represented by two hexadecimal characters
+you should represent them as a hexadecimal (Base16) string
+(i.e. a sequence of hexadecimal digits: 0–9 and a–f).
+Every byte can be represented by two hexadecimal digits
 so the hexadecimal string should have 64 characters.
 An example is
 "ee788e85a9b5ae9aa9af4fe71458e8b3b72d2e0f290f3e6bc0bdaa262b60a860".
