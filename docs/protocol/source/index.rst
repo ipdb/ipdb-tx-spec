@@ -7,10 +7,12 @@ The IPDB Protocol
    introduction
    glossary
    transactions
+   transaction-id
    inputs
    outputs
    assets
-   serialization
+   json-serialization
+   string-to-bytes
    computing-hashes
    http-api
    
