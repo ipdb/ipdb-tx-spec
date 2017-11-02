@@ -13,5 +13,6 @@ The IPDB Protocol
    json-serialization
    string-to-bytes
    computing-hashes
+   crypto-keys
    http-api
    glossary
