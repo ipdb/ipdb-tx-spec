@@ -31,7 +31,8 @@ id
 The transaction ID and also the SHA3-256 hash of the transaction (loosely speaking).
 It's a string.
 An example is "0e7a9a9047fdf39eb5ead7170ec412c6bffdbe8d7888966584b4014863e03518".
-To calculate it, see :ref:`the page about the transaction ID <Transaction ID>`.
+To calculate it, see 
+:ref:`the page about computing transaction ID <Computing Transaction ID>`.
 
 
 version

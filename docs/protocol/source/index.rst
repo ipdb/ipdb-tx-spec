@@ -5,7 +5,6 @@ The IPDB Protocol
    :maxdepth: 2
 
    introduction
-   glossary
    transactions
    transaction-id
    inputs
@@ -15,4 +14,4 @@ The IPDB Protocol
    string-to-bytes
    computing-hashes
    http-api
-   
+   glossary
