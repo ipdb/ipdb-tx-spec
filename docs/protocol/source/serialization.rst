@@ -1,4 +1,0 @@
-Serialization
-=============
-
-Placeholer page.
