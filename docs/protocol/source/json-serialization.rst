@@ -24,7 +24,7 @@ Most common programming languages have one or more libraries/packages
 which can do the same as RapidJSON.
 
 
-**Using Python 3**
+**Example Python 3 Code**
 
 There's a Python 3 wrapper around RapidJSON called 
 `python-rapidjson <https://github.com/python-rapidjson/python-rapidjson>`_.

@@ -21,7 +21,7 @@ An example is
 "ee788e85a9b5ae9aa9af4fe71458e8b3b72d2e0f290f3e6bc0bdaa262b60a860".
 
 
-**Python 3**
+**Example Python 3 Code**
 
 Install the package pysha3 1.0 or greater (from PyPI).
 It's a wrapper around 
