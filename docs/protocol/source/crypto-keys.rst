@@ -34,7 +34,7 @@ Here's an example Ed25519 public/private key pair:
    }
 
 
-**Python 3**
+**Example Python 3 Code**
 
 One can use the 
 `cryptoconditions package <https://github.com/bigchaindb/cryptoconditions>`_

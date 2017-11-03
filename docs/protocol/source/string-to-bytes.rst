@@ -8,7 +8,7 @@ in the case of the IPDB Protocol, the encoding must be
 `UTF-8 <https://en.wikipedia.org/wiki/UTF-8>`_.
 
 
-**Using Python 3**
+**Example Python 3 Code**
 
 If ``example_string`` is a Python 3 
 `str object <https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str>`_
