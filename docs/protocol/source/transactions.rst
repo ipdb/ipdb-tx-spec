@@ -93,6 +93,9 @@ metadata
 
 User-provided transaction metadata.
 It can be any valid JSON object, or ``null``.
+Please note that the meaning of a "valid JSON object" may
+depend on the implementation; see the page about
+:ref:`implementation-specific deviations <Implementation-Specific Deviations>`.
 
 
 Examples
