@@ -5,6 +5,7 @@ The IPDB Protocol
    :maxdepth: 2
 
    introduction
+   implementation-deviations
    transactions
    transaction-id
    inputs
