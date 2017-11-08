@@ -3,7 +3,7 @@ Transactions
 
 A transaction is a JSON object with a particular schema,
 as outlined in this page and subsequent pages.
-A transaction must contain the following top-level keys
+A transaction must contain the following top-level JSON keys
 (also called names or fields):
 
 .. code-block:: json
@@ -22,17 +22,20 @@ You may wonder where the transaction signatures are.
 They're in the inputs.
 
 
-Keys
-----
+JSON Keys
+---------
 
 id
 ^^
 
-The transaction ID and also the SHA3-256 hash of the transaction (loosely speaking).
+The transaction ID and also the SHA3-256 hash
+of the unsigned transaction, loosely speaking.
 It's a string.
-An example is "0e7a9a9047fdf39eb5ead7170ec412c6bffdbe8d7888966584b4014863e03518".
-To calculate it, see 
-:ref:`the page about computing transaction ID <Computing Transaction ID>`.
+The page about :ref:`transaction ID <Transaction ID>` lists the steps
+to compute it.
+An example is:
+
+``"0e7a9a9047fdf39eb5ead7170ec412c6bffdbe8d7888966584b4014863e03518"``
 
 
 version
@@ -41,7 +44,7 @@ version
 The version-number of the transaction schema.
 It's a string.
 In version 1.0 of the protocol,
-the only allowed value of ``"version"`` is ``"1.0"``.
+the only allowed value is ``"1.0"``.
 
 
 inputs

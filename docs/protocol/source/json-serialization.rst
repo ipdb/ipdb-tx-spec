@@ -2,13 +2,13 @@ JSON Serialization & Deserialization
 ====================================
 
 In the IPDB Protocol, "JSON serialization" is the standard process
-to convert an associative array (such as a Python dict)
+to convert an :term:`associative array` (such as a Python dict)
 to a standard Unicode JSON string. "JSON deserialization" is the reverse.
-Some constraints are imposed on the JSON string:
+In the IPDB Protocol, some constraints are imposed on the JSON string:
 
 - All keys must be strings
 - The string is Unicode (not just ASCII)
-- In the JSON string, all keys are sorted by key name
+- In the JSON string, all keys are sorted by key name (because associative arrays don't have an implicit order, but we need there to be only *one* JSON string associated with a given associative array)
 
 There are several JSON standards, notably RFC 7159 and ECMA-404.
 
@@ -38,8 +38,8 @@ standard in the sense of the IPDB Protocol):
 
    import rapidjson
 
-   # data is a dictionary
-   json_str = rapidjson.dumps(data,
+   # input_dict is a dictionary
+   json_str = rapidjson.dumps(input_dict,
                               skipkeys=False,
                               ensure_ascii=False,
                               sort_keys=True)
