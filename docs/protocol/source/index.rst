@@ -12,6 +12,7 @@ The IPDB Protocol
    outputs
    assets
    blocks
+   votes
    json-serialization
    string-to-bytes
    crypto-hashes
