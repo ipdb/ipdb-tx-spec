@@ -6,10 +6,12 @@ The IPDB Protocol
 
    introduction
    implementation-deviations
+   ownership
    transactions
    transaction-id
    inputs
    outputs
+   conditions
    assets
    blocks
    votes
