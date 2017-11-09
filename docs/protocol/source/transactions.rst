@@ -14,19 +14,18 @@ A transaction must contain the following top-level JSON keys
         "inputs": ["<List of inputs>"],
         "outputs": ["<List of outputs>"],
         "operation": "<String>",
-        "asset": {"<Asset model; see below>"},
-        "metadata": {"<Arbitrary transaction metadata>"}
+        "asset": {"<Asset object>"},
+        "metadata": {"<Metadata object>"}
     }
 
 You may wonder where the transaction signatures are.
 They're in the inputs.
 
 
-JSON Keys
----------
+The JSON Keys in a Transaction
+------------------------------
 
-id
-^^
+**id**
 
 The transaction ID and also the SHA3-256 hash
 of the unsigned transaction, loosely speaking.
@@ -38,8 +37,7 @@ An example is:
 ``"0e7a9a9047fdf39eb5ead7170ec412c6bffdbe8d7888966584b4014863e03518"``
 
 
-version
-^^^^^^^
+**version**
 
 The version-number of the transaction schema.
 It's a string.
@@ -47,8 +45,7 @@ In version 1.0 of the protocol,
 the only allowed value is ``"1.0"``.
 
 
-inputs
-^^^^^^
+**inputs**
 
 A list of transaction inputs.
 Each input spends/transfers a previous output by satisfying/fulfilling
@@ -58,8 +55,7 @@ A TRANSFER transaction must have at least one input (i.e. ≥ 1).
 See :ref:`the page about transaction inputs <Transaction Inputs>`.
 
 
-outputs
-^^^^^^^
+**outputs**
 
 A list of transaction outputs.
 Each output indicates the crypto-conditions which must be satisfied
@@ -68,8 +64,7 @@ It also indicates the number of shares of the asset tied to that output.
 See :ref:`the page about transaction outputs <Transaction Outputs>`.
 
 
-operation
-^^^^^^^^^
+**operation**
 
 A string indicating what kind of transaction this is,
 and how it should be validated.
@@ -83,16 +78,14 @@ the one in the GENESIS block).
    of the protocol.
 
 
-asset
-^^^^^
+**asset**
 
 A JSON object for the asset associated with the transaction.
 (A transaction can only be associated with one asset.)
 See :ref:`the page about assets <Assets>`.
 
 
-metadata
-^^^^^^^^
+**metadata**
 
 User-provided transaction metadata.
 It can be any valid JSON object, or ``null``.
@@ -101,8 +94,8 @@ depend on the implementation; see the page about
 :ref:`implementation-specific deviations <Implementation-Specific Deviations>`.
 
 
-Examples
---------
+Example Transactions
+--------------------
 
 Here's an example transaction:
 

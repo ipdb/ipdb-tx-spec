@@ -11,6 +11,7 @@ The IPDB Protocol
    inputs
    outputs
    assets
+   blocks
    json-serialization
    string-to-bytes
    crypto-hashes
