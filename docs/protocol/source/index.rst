@@ -6,7 +6,6 @@ The IPDB Protocol
 
    introduction
    implementation-deviations
-   ownership
    transactions
    transaction-id
    inputs
@@ -20,4 +19,5 @@ The IPDB Protocol
    crypto-hashes
    crypto-keys-and-sigs
    http-api
+   ownership
    glossary
