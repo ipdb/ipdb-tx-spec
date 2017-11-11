@@ -36,7 +36,7 @@ of the input ``json_bytes`` (a Python 3
 and then converts it to a hexadecimal string (a Python 3
 `str object <https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str>`_).
 
-.. code:: python
+.. code-block:: python
 
    import sha3
 

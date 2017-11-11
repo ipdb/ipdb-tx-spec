@@ -34,7 +34,7 @@ To convert a dictionary to a standard Unicode JSON string
 `str object <https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str>`_,
 standard in the sense of the IPDB Protocol):
 
-.. code:: python
+.. code-block:: python
 
    import rapidjson
 
@@ -53,7 +53,6 @@ The python-rapidjson documentation has a
 
 To deserialize a standard Unicode JSON string to a dictionary:
 
-.. code:: python
+.. code-block:: python
 
    new_dict = rapidjson.loads(json_str)
-

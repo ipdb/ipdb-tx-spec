@@ -80,7 +80,7 @@ in the `Handcrafting Transactions page
 
 Here's an example ``fulfillment`` string:
 
-.. code::
+.. code-block:: json
 
    "pGSAIDgbT-nnN57wgI4Cx17gFHv3UB_pIeAzwZCk10rAjs9bgUDxyNnXMl-5PFgSIOrN7br2Tz59MiWe2XY0zlC7LcN52PKhpmdRtcr7GR1PXuTfQ9dE3vGhv7LHn6QqDD6qYHYM"
 
@@ -96,7 +96,7 @@ More specifically, it's a JSON object with two key/value pairs:
 
 An example is:
 
-.. code:: json
+.. code-block:: json
 
     {
         "transaction_id": "107ec21f4c53cd2a934941010437ac74882161bcbefdfd7664268823fc347996",
