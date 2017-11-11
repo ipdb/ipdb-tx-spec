@@ -29,9 +29,9 @@ the IPDB Protocol represents them with a
 
 Here's an example Ed25519 public/private key pair:
 
-.. code:: javascript
+.. code-block:: json
 
-   "keypair": {
+   {
       "public": "9WYFf8T65bv4S8jKU8wongKPD4AmMZAwvk1absFDbYLM",
       "private": "3x7MQpPq8AEUGEuzAxSVHjU1FhLWVQJKFNNkvHhJPGCX"
    }
@@ -52,7 +52,7 @@ the IPDB Protocol represents them with a
 `Base58 encoding <https://en.wikipedia.org/wiki/Base58>`_.
 Here's an example signature:
 
-.. code:: javascript
+.. code-block:: json
 
    "8Z6GJFLSvHmWVqN4dJHshcamNR3cYMwsk9bKScjd32ZgMEtbVSrujHDqrPpdyzBo3tpdse4N4YHXZGXdHfjZZhH"
 

@@ -17,7 +17,7 @@ then it can be converted to a Python 3
 `bytes object <https://docs.python.org/3/library/stdtypes.html#bytes-objects>`_
 using:
 
-.. code:: python
+.. code-block:: python
 
    example_bytes = example_str.encode()
 

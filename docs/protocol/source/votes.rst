@@ -85,7 +85,7 @@ To compute that:
 An Example Vote
 ---------------
 
-.. code:: json
+.. code-block:: json
 
     {
         "node_pubkey": "3ZCsVWPAhPTqHx9wZVxp9Se54pcNeeM5mQvnozDWyDR9",
