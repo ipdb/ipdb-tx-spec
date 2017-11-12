@@ -93,6 +93,10 @@ We've called that function ``sig_of_aa()`` elsewhere in this documentation.
 It takes two inputs: an associative array ``d`` and a ``private_key``.
 It returns a signature string as output. Here is what that function must do:
 
-1. Convert ``d`` to a standard Unicode JSON string. See the page about :ref:`JSON serialization and deserialization <JSON Serialization & Deserialization>`. Call the resulting string ``d_json``.
-2. Convert ``d_json`` to bytes (i.e. a sequence of bytes). See the page about :ref:`converting strings to bytes <Converting Strings to Bytes>`. Call the resulting bytes ``d_bytes``.
-3. Calculate the Ed25519 signature of ``d_bytes`` using the given ``private_key``.
+#. Convert ``d`` to a standard Unicode JSON string. See the page about
+   :ref:`JSON serialization and deserialization <JSON Serialization & Deserialization>`.
+   Call the resulting string ``d_json``.
+#. Convert ``d_json`` to bytes (i.e. a sequence of bytes). See the page about
+   :ref:`converting strings to bytes <Converting Strings to Bytes>`.
+   Call the resulting bytes ``d_bytes``.
+#. Calculate the Ed25519 signature of ``d_bytes`` using the given ``private_key``.
