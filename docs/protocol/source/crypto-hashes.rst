@@ -55,6 +55,11 @@ of an :term:`associative array`. We've called that function ``hash_of_aa()``
 elsewhere in this documentation. It takes an associative array ``d`` as input
 and returns a string as output. Here is what that function must do:
 
-1. Convert ``d`` to a standard Unicode JSON string. See the page about :ref:`JSON serialization and deserialization <JSON Serialization & Deserialization>`. Call the resulting string ``d_json``.
-2. Convert ``d_json`` to bytes (i.e. a sequence of bytes). See the page about :ref:`converting strings to bytes <Converting Strings to Bytes>`. Call the resulting bytes ``d_bytes``.
-3. Compute the SHA3-256 hash of ``d_bytes`` as outlined at the top of this page, and represent the hash as a hexadecimal string.
+#. Convert ``d`` to a standard Unicode JSON string. See the page about
+   :ref:`JSON serialization and deserialization <JSON Serialization & Deserialization>`.
+   Call the resulting string ``d_json``.
+#. Convert ``d_json`` to bytes (i.e. a sequence of bytes). See the page about
+   :ref:`converting strings to bytes <Converting Strings to Bytes>`.
+   Call the resulting bytes ``d_bytes``.
+#. Compute the SHA3-256 hash of ``d_bytes`` as outlined at the top of this page,
+   and represent the hash as a hexadecimal string.
