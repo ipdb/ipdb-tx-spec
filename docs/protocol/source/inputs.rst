@@ -67,9 +67,12 @@ in the output that is being transferred/spent.
 
 Either way, to calculate the fulfillment string:
 
-1. Determine the fulfillment as per the `Crypto-Conditions spec (version 02 or 03) <https://tools.ietf.org/html/draft-thomas-crypto-conditions-03>`_.
-2. Encode the fulfillment using the `ASN.1 Distinguished Encoding Rules (DER) <http://www.itu.int/ITU-T/recommendations/rec.aspx?rec=12483&lang=en>`_.
-3. Encode the resulting bytes using "base64url" (*not* typical base64) as per `RFC 4648, Section 5 <https://tools.ietf.org/html/rfc4648#section-5>`_.
+#. Determine the fulfillment as per the `Crypto-Conditions spec (version 02 or 03)
+   <https://tools.ietf.org/html/draft-thomas-crypto-conditions-03>`_.
+#. Encode the fulfillment using the `ASN.1 Distinguished Encoding Rules (DER)
+   <http://www.itu.int/ITU-T/recommendations/rec.aspx?rec=12483&lang=en>`_.
+#. Encode the resulting bytes using "base64url" (*not* typical base64) as per `RFC 4648,
+   Section 5 <https://tools.ietf.org/html/rfc4648#section-5>`_.
 
 To do those calculations, you could use one of the
 `BigchainDB drivers or transaction-builders 
