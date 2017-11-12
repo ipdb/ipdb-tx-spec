@@ -75,8 +75,13 @@ by the node that created the block
 (i.e. the node with public key ``node_pubkey``).
 To compute that:
 
-1. Construct an :term:`associative array` ``d`` containing the contents of the inner ``block`` (i.e. ``block.timestamp``, ``block.transactions``, ``block.node_pubkey``, ``block.voters``, and their values).
-2. Compute ``signature = sig_of_aa(d, private_key)``, where ``private_key`` is the node's private key (i.e. ``node_pubkey`` and ``private_key`` are a key pair). There's pseudocode for the ``sig_of_aa()`` function on :ref:`the page about cryptographic keys and signatures <Computing the Signature of an Associative Array>`.
+#. Construct an :term:`associative array` ``d`` containing the contents of the inner ``block``
+   (i.e. ``block.timestamp``, ``block.transactions``, ``block.node_pubkey``, ``block.voters``,
+   and their values).
+#. Compute ``signature = sig_of_aa(d, private_key)``, where ``private_key`` is the node's private key
+   (i.e. ``node_pubkey`` and ``private_key`` are a key pair). There's pseudocode
+   for the ``sig_of_aa()`` function on :ref:`the page about cryptographic keys and signatures 
+   <Computing the Signature of an Associative Array>`.
 
 .. note::
 
