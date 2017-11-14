@@ -12,8 +12,7 @@ The IPDB Protocol
    outputs
    conditions
    assets
-   blocks
-   votes
+   blocks-and-votes
    json-serialization
    string-to-bytes
    crypto-hashes
