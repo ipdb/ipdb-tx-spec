@@ -93,6 +93,7 @@ some of which may be subconditions of type THRESHOLD-SHA-256.
 
 One can fulfill a (sub)condition of this type
 by fulfilling *m* of the *n* subconditions.
+Because of that, it's also called an *m*-of-*n* threshold condition.
 
 
 The URI
@@ -105,25 +106,32 @@ then you should consult the
 or use `an existing implementation of crypto-conditions 
 <https://github.com/rfcs/crypto-conditions#implementations>`_.
 
+There is some example Python 3 code
+for calculating condition URI strings below.
 
-**Example Python 3 Code**
 
-.. code-block:: python
+AND & OR Conditions
+-------------------
 
-   import base58
-   from cryptoconditions import Ed25519Sha256
+An *m*-of-*n* threshold condition can be thought of
+as a logic gate with n Boolean inputs,
+where the output is TRUE if, and only if,
+*m* or more of the inputs are TRUE.
+Therefore:
 
-   # Set pubkey to a Base58-encoded public key string (a Python 3 str object)
-   pubkey = 'HFp773FH21sPFrn4y8wX3Ddrkzhqy4La4cQLfePT2vz7'
+* 1-of-*n* is the same as a logical OR of all the inputs
+* *n*-of-*n* is the same as a logical AND of all the inputs
 
-   # Convert that to a bytes representation (a Python 3 bytes object)
-   pubkey_bytes = base58.b58decode(pubkey)
 
-   # Compute the condition uri (string)
-   ed25519 = Ed25519Sha256(public_key=pubkey_bytes)
-   uri = ed25519.condition_uri
-   # uri should be:
-   # 'ni:///sha-256;at0MY6Ye8yvidsgL9FrnKmsVzX0XrNNXFmuAPF4bQeU?fpt=ed25519-sha-256&cost=131072'
+More Complex Conditions
+-----------------------
+
+The (single) output of a threshold condition can be used
+as one of the inputs to *another* threshold condition.
+That means you can combine threshold conditions
+to build complex expressions such as ``(x OR y) AND (2 of {a, b, c})``.
+
+.. image:: /_static/Conditions_Circuit_Diagram.png
 
 
 Cost of a Condition
@@ -143,10 +151,12 @@ or indirectly by setting a maximum allowed transaction size.
 Example Conditions
 ------------------
 
-A condition object can be quite elaborate,
-with many nested levels,
-but the simplest case is actually quite simple.
-Here's an example of the simplest case:
+The Simplest Possible Condition
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The simplest possible condition is one
+with a single ED25519-SHA-256 signature (sub)condition.
+Here's an example:
 
 .. code-block:: json
 
@@ -158,14 +168,29 @@ Here's an example of the simplest case:
        "uri": "ni:///sha-256;at0MY6Ye8yvidsgL9FrnKmsVzX0XrNNXFmuAPF4bQeU?fpt=ed25519-sha-256&cost=131072"
    }
 
-A more complex condition can be composed
-by using *n* signature conditions as inputs
-to an *m*-of-*n* threshold condition:
-a logic gate which outputs TRUE if and only if *m* or more inputs are TRUE.
-If there are *n* inputs to a threshold condition:
+**Example Python 3 Code to Compute the Condition URI**
 
-* 1-of-*n* is the same as a logical OR of all the inputs
-* *n*-of-*n* is the same as a logical AND of all the inputs
+.. code-block:: python
+
+   import base58
+   from cryptoconditions import Ed25519Sha256
+
+   pubkey = 'HFp773FH21sPFrn4y8wX3Ddrkzhqy4La4cQLfePT2vz7'
+
+   # Convert pubkey to a bytes representation (a Python 3 bytes object)
+   pubkey_bytes = base58.b58decode(pubkey)
+
+   # Construct the condition object
+   ed25519 = Ed25519Sha256(public_key=pubkey_bytes)
+
+   # Compute the condition uri (string)
+   uri = ed25519.condition_uri
+   # uri should be:
+   # 'ni:///sha-256;at0MY6Ye8yvidsgL9FrnKmsVzX0XrNNXFmuAPF4bQeU?fpt=ed25519-sha-256&cost=131072'
+
+
+A 2-of-2 Condition
+^^^^^^^^^^^^^^^^^^
 
 Here's an example 2-of-2 condition:
 
@@ -189,11 +214,32 @@ Here's an example 2-of-2 condition:
         "uri": "ni:///sha-256;zr5oThl2kk6613WKGFDg-JGu00Fv88nXcDcp6Cyr0Vw?fpt=threshold-sha-256&cost=264192&subtypes=ed25519-sha-256"
    }
 
-To change it into a 1-of-2 condition, just change the value of ``threshold`` to 1.
+**Example Python 3 Code to Compute the Condition URI**
 
-The (single) output of a threshold condition can be used
-as one of the inputs to another threshold condition.
-That means you can combine threshold conditions
-to build complex expressions such as ``(x OR y) AND (2 of {a, b, c})``.
+.. code-block:: python
 
-.. image:: /_static/Conditions_Circuit_Diagram.png
+   import base58
+   from cryptoconditions import Ed25519Sha256, ThresholdSha256
+
+   pubkey1 = '5ycPMinRx7D7e6wYXLNLa3TCtQrMQfjkap4ih7JVJy3h'
+   pubkey2 = '9RSas2uCxR5sx1rJoUgcd2PB3tBK7KXuCHbUMbnH3X1M'
+
+   # Convert pubkeys to bytes representations (Python 3 bytes objects)
+   pubkey1_bytes = base58.b58decode(pubkey1)
+   pubkey2_bytes = base58.b58decode(pubkey2)
+
+   # Construct the condition object
+   ed25519_1 = Ed25519Sha256(public_key=pubkey1_bytes)
+   ed25519_2 = Ed25519Sha256(public_key=pubkey2_bytes)
+   threshold_sha256 = ThresholdSha256(threshold=2)
+   threshold_sha256.add_subfulfillment(ed25519_1)
+   threshold_sha256.add_subfulfillment(ed25519_2)
+
+   # Compute the condition uri (string)
+   uri = threshold_sha256.condition.serialize_uri()
+   # uri should be:
+   # 'ni:///sha-256;zr5oThl2kk6613WKGFDg-JGu00Fv88nXcDcp6Cyr0Vw?fpt=threshold-sha-256&cost=264192&subtypes=ed25519-sha-256'
+
+
+To change it into a 1-of-2 condition, just change the value of ``threshold`` to 1
+and recompute the condition URI.
