@@ -5,7 +5,7 @@ The IPDB Protocol
    :maxdepth: 2
 
    introduction
-   implementation-deviations
+   http-api
    transactions
    transaction-id
    inputs
@@ -17,6 +17,6 @@ The IPDB Protocol
    string-to-bytes
    crypto-hashes
    crypto-keys-and-sigs
-   http-api
+   implementation-deviations
    ownership
    glossary
