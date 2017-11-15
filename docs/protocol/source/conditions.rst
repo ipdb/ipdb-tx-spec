@@ -105,8 +105,25 @@ then you should consult the
 or use `an existing implementation of crypto-conditions 
 <https://github.com/rfcs/crypto-conditions#implementations>`_.
 
-The `Handcrafting Transactions <https://docs.bigchaindb.com/projects/py-driver/en/latest/handcraft.html>`_
-doc may also be of interest.
+
+**Example Python 3 Code**
+
+.. code-block:: python
+
+   import base58
+   from cryptoconditions import Ed25519Sha256
+
+   # Set pubkey to a Base58-encoded public key string (a Python 3 str object)
+   pubkey = 'HFp773FH21sPFrn4y8wX3Ddrkzhqy4La4cQLfePT2vz7'
+
+   # Convert that to a bytes representation (a Python 3 bytes object)
+   pubkey_bytes = base58.b58decode(pubkey)
+
+   # Compute the condition uri (string)
+   ed25519 = Ed25519Sha256(public_key=pubkey_bytes)
+   uri = ed25519.condition_uri
+   # uri should be:
+   # 'ni:///sha-256;at0MY6Ye8yvidsgL9FrnKmsVzX0XrNNXFmuAPF4bQeU?fpt=ed25519-sha-256&cost=131072'
 
 
 Cost of a Condition
