@@ -6,12 +6,7 @@ The IPDB Protocol
 
    introduction
    http-api
-   transactions
-   transaction-id
-   inputs
-   outputs
-   conditions
-   assets
+   transactions/index
    blocks-and-votes
    json-serialization
    string-to-bytes

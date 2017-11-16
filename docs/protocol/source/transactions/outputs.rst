@@ -1,5 +1,5 @@
-Transaction Outputs
-===================
+Outputs
+=======
 
 A transaction output is a JSON object with a particular schema,
 as outlined in this page and subsequent pages.

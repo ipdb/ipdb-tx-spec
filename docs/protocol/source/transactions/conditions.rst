@@ -94,6 +94,16 @@ some of which may be subconditions of type THRESHOLD-SHA-256.
 One can fulfill a (sub)condition of this type
 by fulfilling *m* of the *n* subconditions.
 Because of that, it's also called an *m*-of-*n* threshold condition.
+An *m*-of-*n* threshold condition can be thought of
+as a logic gate with n Boolean inputs,
+where the output is TRUE if, and only if,
+*m* or more of the inputs are TRUE.
+Therefore:
+
+* 1-of-*n* is the same as a logical OR of all the inputs,
+  e.g. ``1 of {x, y, z} == x OR y OR z``
+* *n*-of-*n* is the same as a logical AND of all the inputs.
+  e.g. ``3 of {x, y, z} == x AND y AND z``
 
 
 The URI
@@ -108,19 +118,6 @@ or use `an existing implementation of crypto-conditions
 
 There is some example Python 3 code
 for calculating condition URI strings below.
-
-
-AND & OR Conditions
--------------------
-
-An *m*-of-*n* threshold condition can be thought of
-as a logic gate with n Boolean inputs,
-where the output is TRUE if, and only if,
-*m* or more of the inputs are TRUE.
-Therefore:
-
-* 1-of-*n* is the same as a logical OR of all the inputs
-* *n*-of-*n* is the same as a logical AND of all the inputs
 
 
 More Complex Conditions
