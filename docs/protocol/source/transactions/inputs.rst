@@ -1,6 +1,13 @@
 Inputs
 ======
 
+A list/array/tuple of transaction inputs.
+
+Each input spends/transfers a previous output by satisfying/fulfilling
+the crypto-conditions on that output.
+A CREATE transaction must have exactly one input (i.e. == 1).
+A TRANSFER transaction must have at least one input (i.e. ≥ 1).
+
 There's a high-level overview of transaction inputs and outputs
 in `the BigchainDB root docs page about transaction concepts 
 <https://docs.bigchaindb.com/en/latest/transaction-concepts.html>`_.
@@ -16,25 +23,48 @@ Each output may be spent at most once, by a single input.
 Note that any asset associated with an output holding an amount greater than one
 is considered a divisible asset that may be split up in future transactions.
 
-A transaction input is a JSON object with a particular schema,
-as outlined in this page.
-A transaction input must contain the following top-level JSON keys
-(also called names or fields):
+An input can be implemented as an :term:`associative array`
+in almost any programming language (e.g. as a dictionary in Python).
+It has the following basic structure:
 
-.. code-block:: json
+.. code-block:: bash
 
    {
-       "owners_before": ["<The public_keys list in the output being spent>"],
-       "fulfillment": "<String that fulfills the condition in the output being spent>",
-       "fulfills": {
-           "transaction_id": "<ID of the transaction containing the output being spent>",
-           "output_index": "<Index of the output being spent (an integer)>"
-       }
+      "fulfills": {
+         "transaction_id": "<ID of the transaction containing the output being spent>",
+         "output_index": index
+      },
+      "owners_before": ["<The public_keys list in the output being spent>"],
+      "fulfillment": "<String that fulfills the condition in the output being spent>"
    }
 
 
-The JSON Keys in a Transaction Input
-------------------------------------
+The Keys in a Transaction Input
+-------------------------------
+
+**fulfills**
+
+If the transaction is a TRANSFER transaction,
+then this is like a pointer to the :ref:`output <Outputs>` being spent/transferred.
+More specifically, it's an :term:`associative array` with two key/value pairs:
+
+- ``transaction_id`` is the ID of the transaction where the output is located. It's a string.
+- ``output_index`` is the index of the output being spent. It's an integer, *not a string*. Example values are ``0``, ``1`` and ``12`` (*not* ``"0"`` or any other string).
+
+An example is:
+
+.. code-block:: json
+
+    {
+        "transaction_id": "107ec21f4c53cd2a934941010437ac74882161bcbefdfd7664268823fc347996",
+        "output_index": 0
+    }
+
+If the transaction is a CREATE transaction,
+then the value of ``fulfills`` must be
+the equivalent of :term:`null` in your programming language,
+because there is no other transaction output that it's transferring/spending.
+
 
 **owners_before**
 
@@ -57,55 +87,38 @@ being transferred/spent.
 **fulfillment**
 
 If the transaction is a CREATE transaction,
-then the fulfillment string must fulfill
-an implicit n-of-n signature condition,
-i.e. one signature from each of the n ``owners_before``.
-
+then the fulfillment must fulfill
+an implicit *n*-of-*n* signature condition,
+i.e. one signature from each of the *n* ``owners_before``.
 If the transaction is a TRANSFER transaction,
-then the fulfillment string must fulfill the condition
-in the output that is being transferred/spent.
+then the fulfillment must fulfill the condition
+in the :ref:`output <Outputs>` that is being transferred/spent.
+The page about :ref:`conditions <Conditions>` explains how
+to construct a condition object.
 
-Either way, to calculate the fulfillment string:
+The specifics of how to compute a fulfillment
+for a condition (and the associated fulfillment string)
+are given in the crypto conditions spec.
+Consult the
+`crypto-conditions spec (version 03) 
+<https://tools.ietf.org/html/draft-thomas-crypto-conditions-03>`_
+or use `an existing implementation of crypto-conditions 
+<https://github.com/rfcs/crypto-conditions#implementations>`_.
 
-#. Determine the fulfillment as per the `Crypto-Conditions spec (version 02 or 03)
-   <https://tools.ietf.org/html/draft-thomas-crypto-conditions-03>`_.
-#. Encode the fulfillment using the `ASN.1 Distinguished Encoding Rules (DER)
-   <http://www.itu.int/ITU-T/recommendations/rec.aspx?rec=12483&lang=en>`_.
-#. Encode the resulting bytes using "base64url" (*not* typical base64) as per `RFC 4648,
-   Section 5 <https://tools.ietf.org/html/rfc4648#section-5>`_.
+The page about :ref:`how to construct a transaction
+<How to Construct a Transaction>` gives more details,
+including a link to example Python code.
 
-To do those calculations, you could use one of the
-`BigchainDB drivers or transaction-builders 
-<https://docs.bigchaindb.com/projects/server/en/master/drivers-clients/index.html>`_,
-or use a low-level crypto-conditions library as illustrated
-in the `Handcrafting Transactions page
-<https://docs.bigchaindb.com/projects/py-driver/en/latest/handcraft.html>`_.
-
-Here's an example ``fulfillment`` string:
+Here's an example fulfillment string:
 
 .. code-block:: json
 
    "pGSAIDgbT-nnN57wgI4Cx17gFHv3UB_pIeAzwZCk10rAjs9bgUDxyNnXMl-5PFgSIOrN7br2Tz59MiWe2XY0zlC7LcN52PKhpmdRtcr7GR1PXuTfQ9dE3vGhv7LHn6QqDD6qYHYM"
 
+.. note::
 
-**fulfills**
+   The basic steps to compute a fulfillment string are:
 
-If the transaction is a TRANSFER transaction,
-then this is like a pointer to the output being spent/transferred.
-More specifically, it's a JSON object with two key/value pairs:
-
-- ``transaction_id`` is the ID of the transaction where the output is located. It's a string.
-- ``output_index`` is the index of the output being spent. It's an integer, *not a string*. Example values are ``0``, ``1`` and ``12`` (*not* ``"0"`` or any other string).
-
-An example is:
-
-.. code-block:: json
-
-    {
-        "transaction_id": "107ec21f4c53cd2a934941010437ac74882161bcbefdfd7664268823fc347996",
-        "output_index": 0
-    }
-
-If the transaction is a CREATE transaction,
-then the value of ``fulfills`` must be ``null``,
-because there is no other transaction output that it's transferring/spending.
+   #. Construct the fulfillment as per the crypto-conditions spec.
+   #. Encode the fulfillment to bytes using the `ASN.1 Distinguished Encoding Rules (DER) <http://www.itu.int/ITU-T/recommendations/rec.aspx?rec=12483&lang=en>`_.
+   #. Encode the resulting bytes using "base64url" (*not* typical base64) as per `RFC 4648, Section 5 <https://tools.ietf.org/html/rfc4648#section-5>`_.

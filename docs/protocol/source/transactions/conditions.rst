@@ -1,26 +1,21 @@
 Conditions
 ==========
 
-A condition is a JSON object with a particular schema,
-as outlined in this page.
-A condition must contain the following top-level JSON keys
-(also called names or fields):
+A condition can be implemented as an :term:`associative array`
+in almost any programming language (e.g. as a dictionary in Python).
+It has the following basic structure:
 
-.. code-block:: json
+.. code-block:: bash
 
    {
-       "details": {"<Subcondition object>"},
-       "uri": "<URI string>"
+       "details": subcondition,
+       "uri": "<Condition URI string>"
    }
 
-The ``uri`` is explained later. First we specify the contents
-of a subcondition object.
+Subconditions
+-------------
 
-
-Subcondition Objects
---------------------
-
-A subcondition (object) is a JSON object with a particular schema.
+A subcondition can be implemented as an :term:`associative array`.
 In this version of the IPDB Protocol, there are two possible subcondition types:
 
 1. ED25519-SHA-256
@@ -44,9 +39,9 @@ but the above two types are the only ones used by the IPDB Protocol.
 Type 1: ED25519-SHA-256
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-A subcondition of type ED25519-SHA-256 is a JSON object.
-It must contain the following top-level JSON keys
-(also called names or fields):
+A subcondition of type ED25519-SHA-256
+can be implemented as an :term:`associative array`.
+Here's a JSON example:
 
 .. code-block:: json
 
@@ -69,15 +64,15 @@ to the given public key.
 Type 2: THRESHOLD-SHA-256
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-A subcondition of type THRESHOLD-SHA-256 is a JSON object.
-It must contain the following top-level JSON keys
-(also called names or fields):
+A subcondition of type THRESHOLD-SHA-256
+can be implemented as an :term:`associative array`.
+It has the following basic structure:
 
-.. code-block:: json
+.. code-block:: bash
 
    {
       "type": "threshold-sha-256",
-      "threshold": "<An integer>",
+      "threshold": small_int,
       "subconditions": ["<List of subcondition objects>"]
    }
 
@@ -87,7 +82,7 @@ The ``threshold`` must be an *integer* *m* between 1 and the number
 of objects in the ``subconditions`` list (*n*). It's *not a string*.
 
 The ``subconditions`` must be a list of one or more
-subcondition objects (*n* objects). Note the recursive definition:
+subconditions (*n* associative arrays). Note the recursive definition:
 a threshold subcondition contains a list of subconditions,
 some of which may be subconditions of type THRESHOLD-SHA-256.
 
@@ -153,7 +148,7 @@ The Simplest Possible Condition
 
 The simplest possible condition is one
 with a single ED25519-SHA-256 signature (sub)condition.
-Here's an example:
+Here's a JSON example:
 
 .. code-block:: json
 
@@ -189,7 +184,7 @@ Here's an example:
 A 2-of-2 Condition
 ^^^^^^^^^^^^^^^^^^
 
-Here's an example 2-of-2 condition:
+Here's an example 2-of-2 condition (JSON):
 
 .. code-block:: json
 
