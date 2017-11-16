@@ -7,8 +7,14 @@ to a standard Unicode JSON string. "JSON deserialization" is the reverse.
 In the IPDB Protocol, some constraints are imposed on the JSON string:
 
 - All keys must be strings
+- The separator after each key is ``:`` with no spaces on either side.
+- The separator after each value (except the last one)
+  is ``,`` with no spaces on either side and no newline or carriage return.
 - The string is Unicode (not just ASCII)
-- In the JSON string, all keys are sorted by key name (because associative arrays don't have an implicit order, but we need there to be only *one* JSON string associated with a given associative array)
+- In the JSON string, all keys are sorted by key name
+  (because associative arrays don't have an implicit order,
+  but we need there to be only *one* JSON string associated
+  with a given associative array)
 
 There are several JSON standards, notably RFC 7159 and ECMA-404.
 
@@ -44,8 +50,11 @@ standard in the sense of the IPDB Protocol):
                               ensure_ascii=False,
                               sort_keys=True)
 
-- ``skipkeys=False`` ensures all keys are strings. If they're not, the serialization will fail.
-- ``ensure_ascii=False`` allows non-ASCII Unicode characters to pass through into the resulting Python 3 `str object <https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str>`_.
+- ``skipkeys=False`` ensures all keys are strings.
+  If they're not, the serialization will fail.
+- ``ensure_ascii=False`` allows non-ASCII Unicode characters
+  to pass through into the resulting Python 3
+  `str object <https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str>`_.
 - ``sort_keys=True`` ensures the JSON output is sorted by key.
 
 The python-rapidjson documentation has a
