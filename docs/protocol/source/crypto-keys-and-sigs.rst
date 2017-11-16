@@ -57,9 +57,10 @@ Here's an example signature:
    "8Z6GJFLSvHmWVqN4dJHshcamNR3cYMwsk9bKScjd32ZgMEtbVSrujHDqrPpdyzBo3tpdse4N4YHXZGXdHfjZZhH"
 
 The keys and signatures that go into
-:ref:`outputs <Transaction Outputs>` and :ref:`inputs <Transaction Inputs>`
+:ref:`outputs <Outputs>` and :ref:`inputs <Inputs>`
 follow the 
-`crypto-conditions specification <https://tools.ietf.org/html/draft-thomas-crypto-conditions-03>`_.
+`crypto-conditions specification
+<https://tools.ietf.org/html/draft-thomas-crypto-conditions-03>`_.
 However, the IPDB Protocol only allows for Ed25519 keys and signatures.
 (It doesn't allow for the RSA ones which are also
 part of the crypto-conditions specification.)

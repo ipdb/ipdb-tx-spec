@@ -1,5 +1,5 @@
-Transactions
-============
+The Basic Structure of a Transaction
+====================================
 
 A transaction is a JSON object with a particular schema,
 as outlined in this page and subsequent pages.
@@ -52,7 +52,7 @@ Each input spends/transfers a previous output by satisfying/fulfilling
 the crypto-conditions on that output.
 A CREATE transaction must have exactly one input (i.e. == 1).
 A TRANSFER transaction must have at least one input (i.e. ≥ 1).
-See :ref:`the page about transaction inputs <Transaction Inputs>`.
+See :ref:`the page about transaction inputs <Inputs>`.
 
 
 **outputs**
@@ -61,7 +61,7 @@ A list of transaction outputs.
 Each output indicates the crypto-conditions which must be satisfied
 by anyone wishing to spend/transfer that output.
 It also indicates the number of shares of the asset tied to that output.
-See :ref:`the page about transaction outputs <Transaction Outputs>`.
+See :ref:`the page about transaction outputs <Outputs>`.
 
 
 **operation**

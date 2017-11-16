@@ -1,5 +1,5 @@
-Transaction Inputs
-==================
+Inputs
+======
 
 There's a high-level overview of transaction inputs and outputs
 in `the BigchainDB root docs page about transaction concepts 
@@ -46,7 +46,7 @@ i.e. they must compute the ``fulfillment`` string using their private keys.
 
 If the transaction is a TRANSFER transaction,
 then this list must agree with the
-``public_keys`` list in the :ref:`output <Transaction Outputs>`
+``public_keys`` list in the :ref:`output <Outputs>`
 being transferred/spent.
 
 .. note::
