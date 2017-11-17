@@ -1,5 +1,5 @@
-Assets
-======
+Asset
+=====
 
 In a CREATE transaction,
 an asset can be the equivalent of :term:`null` or

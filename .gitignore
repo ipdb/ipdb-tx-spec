@@ -65,13 +65,5 @@ target/
 # pyenv
 .python-version
 
-# Some files created when deploying a cluster on AWS
-deploy-cluster-aws/conf/rethinkdb.conf
-deploy-cluster-aws/confiles/
-deploy-cluster-aws/client_confile
-deploy-cluster-aws/hostlist.py
-deploy-cluster-aws/ssh_key.py
-
 # Just in time documentation
-docs/server/source/schema
-docs/server/source/http-samples
+docs/protocol/source/http-samples

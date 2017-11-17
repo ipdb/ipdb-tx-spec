@@ -6,6 +6,7 @@ The IPDB Protocol
 
    introduction
    http-api
+   event-stream-api
    transactions/index
    blocks-and-votes
    json-serialization

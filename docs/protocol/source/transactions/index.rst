@@ -29,7 +29,7 @@ They're in the inputs.
    outputs
    conditions
    operation
-   assets
+   asset
    metadata
    construct-a-tx
    example-transactions
