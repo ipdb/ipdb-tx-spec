@@ -12,7 +12,7 @@ to construct a valid "fulfilled transaction."
    <Version>`.
 #. Set a variable named ``operation`` to a :ref:`valid operation value
    <Operation>`.
-#. Set a variable named ``asset`` to a :ref:`valid asset <Assets>`.
+#. Set a variable named ``asset`` to a :ref:`valid asset <Asset>`.
 #. Set a variable named ``metadata`` to a :ref:`valid metadata
    <Metadata>`.
 #. Generate or get all the required :ref:`public keys <Cryptographic Keys & Signatures>`.
