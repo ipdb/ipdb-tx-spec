@@ -32,4 +32,5 @@ They're in the inputs.
    asset
    metadata
    construct-a-tx
+   transaction-validation
    example-transactions
