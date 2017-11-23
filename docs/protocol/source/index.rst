@@ -2,9 +2,11 @@ The IPDB Protocol
 =================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    introduction
+   server-reqs
+   driver-reqs
    http-api
    event-stream-api
    transactions/index
