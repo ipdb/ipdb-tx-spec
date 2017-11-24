@@ -11,10 +11,7 @@ The IPDB Protocol
    event-stream-api
    transactions/index
    blocks-and-votes
-   json-serialization
-   string-to-bytes
-   crypto-hashes
-   crypto-keys-and-sigs
+   common-operations/index
    implementation-deviations
    ownership
    glossary
