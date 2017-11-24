@@ -5,6 +5,7 @@ The IPDB Protocol
    :maxdepth: 1
 
    introduction
+   versioning
    server-reqs
    driver-reqs
    http-api
