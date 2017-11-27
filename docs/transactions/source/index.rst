@@ -8,8 +8,6 @@ The IPDB Protocol
    versioning
    server-reqs
    driver-reqs
-   http-api
-   event-stream-api
    transactions/index
    blocks-and-votes
    common-operations/index

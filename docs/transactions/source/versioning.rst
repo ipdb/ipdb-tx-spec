@@ -15,8 +15,6 @@ of the IPDB Protocol specification:
 
 - (TODO: Remove? Postpone?) :ref:`Server Requirements`
 - (TODO: Remove? Postpone?) :ref:`Driver Requirements`
-- Version TODO of the :ref:`HTTP API` (i.e. with endpoints like /api/v1/things)
-- Version TODO of the :ref:`Event Stream API` (i.e. /api/v1/streams/)
 - Version 2.0 of the transaction model,
   as described in the :ref:`Transactions` section
 - Version 2.0 of the JSON Schema files for transactions.
