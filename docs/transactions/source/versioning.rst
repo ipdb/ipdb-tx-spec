@@ -13,8 +13,6 @@ The IPDB Protocol will have several versions.
 The following things are included in version 2
 of the IPDB Protocol specification:
 
-- (TODO: Remove? Postpone?) :ref:`Server Requirements`
-- (TODO: Remove? Postpone?) :ref:`Driver Requirements`
 - Version 2.0 of the transaction model,
   as described in the :ref:`Transactions` section
 - Version 2.0 of the JSON Schema files for transactions.

@@ -6,8 +6,6 @@ The IPDB Protocol
 
    introduction
    versioning
-   server-reqs
-   driver-reqs
    transactions/index
    common-operations/index
    implementation-deviations

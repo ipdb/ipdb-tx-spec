@@ -10,7 +10,7 @@ JSON Schema Validation
 ----------------------
 
 When checking the validity of a transaction,
-an :ref:`IPDB-compliant server <Server Requirements>`
+an IPDB-compliant server
 must check it against a formal schema
 defined in a set of `JSON Schema <http://json-schema.org/>`_ files.
 Those files can be found
