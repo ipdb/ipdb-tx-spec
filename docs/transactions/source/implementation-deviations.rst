@@ -14,14 +14,6 @@ BigchainDB Server
 is an :ref:`IPDB-compliant server <Server Requirements>`
 implemented in Python.
 
-The 0.x and 1.x series of BigchainDB Server
-had/have blocks and votes.
-See the `BigchainDB Server documentation
-<https://docs.bigchaindb.com/projects/server/en/latest/index.html>`_
-for more information.
-(You can switch to the docs of a different version
-using the selector in the lower left corner of the screen.)
-
 
 BigchainDB Server with MongoDB
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

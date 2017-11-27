@@ -9,7 +9,6 @@ The IPDB Protocol
    server-reqs
    driver-reqs
    transactions/index
-   blocks-and-votes
    common-operations/index
    implementation-deviations
    ownership
