@@ -18,7 +18,7 @@ the computed hash must be a NIST-standard SHA3-256 hash.
 A SHA3-256 hash can be represented as a sequence of 256 bits, 32 bytes,
 or many other ways.
 When representing SHA3-256 hashes as strings
-(e.g. inside :ref:`transactions <Transactions>`),
+(e.g. inside transactions),
 they must be represented with a hexadecimal encoding:
 a sequence of hexadecimal digits (0–9 and a–f).
 Every byte can be represented by two hexadecimal digits

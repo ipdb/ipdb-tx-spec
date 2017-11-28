@@ -1,5 +1,5 @@
-Transactions
-============
+Transaction Components
+======================
 
 A transaction can be implemented as an :term:`associative array`
 in almost any programming language (e.g. as a dictionary in Python).
@@ -31,6 +31,3 @@ They're in the inputs.
    operation
    asset
    metadata
-   construct-a-tx
-   transaction-validation
-   example-transactions

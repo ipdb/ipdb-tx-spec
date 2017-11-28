@@ -14,7 +14,7 @@ There's more information about EdDSA and Ed25519 in
 `RFC 8032 <https://tools.ietf.org/html/rfc8032>`_.
 
 When representing public/private keys as strings
-(e.g. inside :ref:`transactions <Transactions>`),
+(e.g. inside transactions),
 they must be represented with a
 `Base58 encoding <https://en.wikipedia.org/wiki/Base58>`_.
 
