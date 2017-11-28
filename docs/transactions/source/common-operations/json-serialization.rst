@@ -1,10 +1,10 @@
 JSON Serialization & Deserialization
 ====================================
 
-In the IPDB Protocol, "JSON serialization" is the standard process
+In the IPDB Transaction Spec, "JSON serialization" is the standard process
 to convert an :term:`associative array` (such as a Python dict)
 to a standard Unicode JSON string. "JSON deserialization" is the reverse.
-In the IPDB Protocol, some constraints are imposed on the JSON string:
+In the IPDB Transaction Spec, some constraints are imposed on the JSON string:
 
 - All keys must be strings
 - The separator after each key is ``:`` with no spaces on either side.
@@ -19,7 +19,7 @@ In the IPDB Protocol, some constraints are imposed on the JSON string:
 There are several JSON standards, notably RFC 7159 and ECMA-404.
 
 For JSON serialization and deserialization,
-the IPDB Protocol follows what RapidJSON does.
+the IPDB Transaction Spec follows what RapidJSON does.
 `RapidJSON <https://github.com/Tencent/rapidjson>`_
 is a fast C++ JSON library.
 According to `the RapidJSON documentation <http://rapidjson.org/>`_,
@@ -38,7 +38,7 @@ In Python, associative arrays are implemented as dictionaries.
 To convert a dictionary to a standard Unicode JSON string
 (Python 3
 `str object <https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str>`_,
-standard in the sense of the IPDB Protocol):
+standard in the sense of the IPDB Transaction Spec):
 
 .. code-block:: python
 

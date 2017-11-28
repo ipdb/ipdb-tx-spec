@@ -1,7 +1,7 @@
 Cryptographic Keys & Signatures
 ===============================
 
-The IPDB Protocol uses
+The IPDB Transaction Spec uses
 the `Ed25519 <https://ed25519.cr.yp.to/>`_ public-key signature system for:
 
 - generating public/private key pairs (also called verifying/signing key pairs),
@@ -15,14 +15,14 @@ There's more information about EdDSA and Ed25519 in
 
 When representing public/private keys as strings
 (e.g. inside :ref:`transactions <Transactions>`),
-the IPDB Protocol represents them with a
+they must be represented with a
 `Base58 encoding <https://en.wikipedia.org/wiki/Base58>`_.
 
 .. warning::
 
    There is no standard for Base58 encoding.
    The meaning of Base58 varies from library to library.
-   The Base58 encoding used by the IPDB Protocol
+   The Base58 encoding used by the IPDB Transaction Spec
    is that which is implemented by
    `the Python package named base58 <https://pypi.python.org/pypi/base58>`_,
    which is the same as what's used for Bitcoin addresses.
@@ -48,7 +48,7 @@ but there are
 `many other implementations <https://ianix.com/pub/ed25519-deployment.html>`_.
 
 When representing calculated *signatures* as strings (e.g. inside blocks),
-the IPDB Protocol represents them with a
+they must be represented with a
 `Base58 encoding <https://en.wikipedia.org/wiki/Base58>`_.
 Here's an example signature:
 
@@ -61,11 +61,11 @@ The keys and signatures that go into
 follow the 
 `crypto-conditions specification
 <https://tools.ietf.org/html/draft-thomas-crypto-conditions-03>`_.
-However, the IPDB Protocol only allows for Ed25519 keys and signatures.
+However, the IPDB Transaction Spec only allows for Ed25519 keys and signatures.
 (It doesn't allow for the RSA ones which are also
 part of the crypto-conditions specification.)
 The Ed25519 functions used to generate keys, calculate signatures,
-and verify signatures are the *same* across the IPDB Protocol.
+and verify signatures are the *same* across the IPDB Transaction Spec.
 Those calculations aren't done differently inside inputs or outputs.
 
 
@@ -73,7 +73,7 @@ Those calculations aren't done differently inside inputs or outputs.
 
 The Python package `BigchainDB <https://pypi.python.org/pypi/BigchainDB>`_
 is a Python 3 reference implementation
-of an IPDB Protocol server. Its source code is in the 
+of an IPDB-compliant server. Its source code is in the 
 `bigchaindb/bigchaindb <https://github.com/bigchaindb/bigchaindb/>`_
 repository on GitHub.
 There you can see how it generates public/private key pairs,
@@ -88,7 +88,7 @@ which is a fork of the Networking and Cryptography library.
 Computing the Signature of an Associative Array
 -----------------------------------------------
 
-There's an IPDB Protocol standard way to compute the signature
+There's an IPDB-standard way to compute the signature
 of an :term:`associative array`.
 We've called that function ``sig_of_aa()`` elsewhere in this documentation.
 It takes two inputs: an associative array ``d`` and a ``private_key``.

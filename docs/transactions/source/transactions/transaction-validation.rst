@@ -14,9 +14,8 @@ an IPDB-compliant server
 must check it against a formal schema
 defined in a set of `JSON Schema <http://json-schema.org/>`_ files.
 Those files can be found
-in the `ipdb/ipdb-protocol repository on GitHub
-<https://github.com/ipdb/ipdb-protocol>`_,
-in the ``tx_schema/`` directory.
+in the ``tx_schema/`` directory
+of the IPDB Transaction Spec repository.
 
 Tip 1: There's a nice explanation of JSON Schema in the website
 `"Understanding JSON Schema"

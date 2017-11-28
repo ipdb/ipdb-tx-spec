@@ -2,7 +2,7 @@ The IPDB Protocol
 =================
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    introduction
    versioning

@@ -10,4 +10,4 @@ the one in the GENESIS block).
 .. note::
 
    The ``"GENESIS"`` transaction might be deprecated in future versions
-   of the protocol.
+   of the IPDB Transaction Spec.

@@ -2,7 +2,7 @@ Implementation-Specific Deviations
 ==================================
 
 Some implementations of IPDB-compliant servers
-or drivers deviate from the IPDB Protocol.
+or drivers deviate from the IPDB Transaction Spec.
 This page summarizes those deviations.
 
 

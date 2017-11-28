@@ -3,5 +3,12 @@ Version
 
 The version-number of the transaction schema.
 It's a string.
-In version 1.0 of the IPDB Protocol,
-the only allowed value is ``"1.0"``.
+
+The allowed values are ``"2.0"`` up
+to the current version.
+Those allowed values are enforced
+by the JSON Schema files
+for the current version of the IPDB Transaction Spec.
+Those files can be found
+in the ``tx_schema/`` directory
+of the IPDB Transaction Spec repository.

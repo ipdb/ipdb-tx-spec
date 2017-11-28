@@ -1,10 +1,13 @@
 Cryptographic Hashes
 ====================
 
-IPDB Protocol Standard Hashes
------------------------------
+IPDB-Standard Hashes
+--------------------
 
-The IPDB Protocol uses NIST-standard SHA3-256 hashes.
+When computing a cryptographic hash (such as the :ref:`Transaction ID`),
+and *not* falling back to some other protocol (such as crypto-conditions)
+to specify how the hash should be computed,
+the computed hash must be a NIST-standard SHA3-256 hash.
 
 .. warning::
 
@@ -14,9 +17,9 @@ The IPDB Protocol uses NIST-standard SHA3-256 hashes.
 
 A SHA3-256 hash can be represented as a sequence of 256 bits, 32 bytes,
 or many other ways.
-When representing hashes as strings
+When representing SHA3-256 hashes as strings
 (e.g. inside :ref:`transactions <Transactions>`),
-the IPDB Protocol represents them with a hexadecimal encoding:
+they must be represented with a hexadecimal encoding:
 a sequence of hexadecimal digits (0–9 and a–f).
 Every byte can be represented by two hexadecimal digits
 so the hexadecimal string should have 64 characters.
@@ -50,7 +53,7 @@ Note: ``sha3.sha3_256(json_bytes)`` is an intermediate object of class
 Computing the Hash of an Associative Array
 ------------------------------------------
 
-There's an IPDB Protocol standard way to compute the hash
+There's an IPDB-standard way to compute the hash
 of an :term:`associative array`. We've called that function ``hash_of_aa()``
 elsewhere in this documentation. It takes an associative array ``d`` as input
 and returns a string as output. Here is what that function must do:

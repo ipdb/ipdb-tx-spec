@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
-SPHINXPROJ    = ipdb-protocol
+SPHINXPROJ    = ipdb-transaction-spec
 SOURCEDIR     = source
 BUILDDIR      = build
 

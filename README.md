@@ -1,14 +1,12 @@
-# IPDB Protocol Specifications
+# The IPDB Transaction Spec
 
-There's not much here yet. It's a work in progress.
+This repository contains the source material
+for the IPDB Transaction Spec (specification),
+i.e. the formal documentation of what's in an IPDB transaction,
+how to construct a valid transaction,
+and how to check if a transaction is valid.
 
-The IPDB Protocol specifications include:
-
-* The IPDB Transaction Specification
-* The IPDB Web APIs Specification (i.e. the HTTP API and Event Stream API)
-* Maybe more in the future
-
-You may notice that there's no IPDB specification for blocks or votes.
+There's no IPDB specification for blocks or votes.
 That may change in the future.
 
 For more information about IPDB and the IPDB Foundation, see:

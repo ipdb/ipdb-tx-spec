@@ -16,7 +16,8 @@ Subconditions
 -------------
 
 A subcondition can be implemented as an :term:`associative array`.
-In this version of the IPDB Protocol, there are two possible subcondition types:
+In this version of the IPDB Transaction Spec,
+there are two possible subcondition types:
 
 1. ED25519-SHA-256
 2. THRESHOLD-SHA-256
@@ -27,11 +28,11 @@ Those names are from the
 which is part of the Interledger Protocol (ILP).
 (It calls them "crypto-condition types.")
 The crypto-conditions spec includes other types,
-but the above two types are the only ones used by the IPDB Protocol.
+but the above types are the only ones used (currently).
 
 .. note::
 
-   This version of the IPDB Protocol conforms to versions 02 and 03
+   This version of the IPDB Transaction Spec conforms to versions 02 and 03
    of the crypto-conditions spec. (The parts that it uses didn't change
    from version 02 to 03.)
 
