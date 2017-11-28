@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# IPDB Protocol documentation build configuration file, created by
+# This build configuration file was created by
 # sphinx-quickstart on Fri Oct 27 13:21:04 2017.
+# It has been edited heavily since then.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -41,18 +42,9 @@ _version = {}
 with open('../../../version.py') as fp:
     exec(fp.read(), _version)
 
-import os.path
-import sys
-
-sys.path.insert(0, os.path.abspath(os.path.dirname(__file__) + '/..'))
-
 extensions = ['sphinx.ext.autodoc',
-    'sphinx.ext.intersphinx',
-    'sphinxcontrib.httpdomain',
-    'sphinx.ext.autosectionlabel',
-    # Below are actually build steps made to look like sphinx extensions.
-    # It was the easiest way to get it running with ReadTheDocs.
-    'generate_http_api_docs',
+              'sphinx.ext.intersphinx',
+              'sphinx.ext.autosectionlabel',
 ]
 
 # autodoc settings
@@ -77,9 +69,9 @@ source_suffix = ['.rst', '.md']
 master_doc = 'index'
 
 # General information about the project.
-project = 'The IPDB Protocol'
-copyright = '2017, IPDB Protocol Contributors'
-author = 'IPDB Protocol Contributors'
+project = 'The IPDB Transaction Spec'
+copyright = '2017, IPDB Contributors'
+author = 'IPDB Contributors'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -146,7 +138,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'ipdb-protocol-doc'
+htmlhelp_basename = 'ipdb-transaction-spec'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -173,8 +165,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'ipdb-protocol.tex', 'IPDB Protocol Documentation',
-     'IPDB Protocol Contributors', 'manual'),
+    (master_doc, 'ipdb-transaction-spec.tex', 'IPDB Transaction Spec',
+     'IPDB Contributors', 'manual'),
 ]
 
 
@@ -183,7 +175,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'ipdb-protocol', 'IPDB Protocol Documentation',
+    (master_doc, 'ipdb-transaction-spec', 'IPDB Transaction Spec',
      [author], 1)
 ]
 
@@ -194,8 +186,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'ipdb-protocol', 'IPDB Protocol Documentation',
-     author, 'ipdb-protocol', 'Documentation of the IPDB Protocol.',
+    (master_doc, 'ipdb-transaction-spec', 'IPDB Transaction Spec',
+     author, 'ipdb-transaction-spec', 'The IPDB Transaction Spec.',
      'Miscellaneous'),
 ]
 

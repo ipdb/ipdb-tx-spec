@@ -4,7 +4,7 @@ Converting Strings to Bytes
 Most common programming languages have some way
 to convert a Unicode string to bytes.
 To do that, one must specify the encoding;
-in the case of the IPDB Protocol, the encoding must be
+in the case of the IPDB Transaction Spec, the encoding must be
 `UTF-8 <https://en.wikipedia.org/wiki/UTF-8>`_.
 
 

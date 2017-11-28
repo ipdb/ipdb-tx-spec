@@ -1,9 +1,8 @@
 Implementation-Specific Deviations
 ==================================
 
-Some implementations of :ref:`IPDB-compliant servers <Server Requirements>`
-or :ref:`drivers <Driver Requirements>`
-deviate from the IPDB Protocol.
+Some implementations of IPDB-compliant servers
+or drivers deviate from the IPDB Transaction Spec.
 This page summarizes those deviations.
 
 
@@ -11,16 +10,8 @@ BigchainDB Server
 -----------------
 
 `BigchainDB Server <https://github.com/bigchaindb/bigchaindb>`_
-is an :ref:`IPDB-compliant server <Server Requirements>`
+is an IPDB-compliant server
 implemented in Python.
-
-The 0.x and 1.x series of BigchainDB Server
-had/have blocks and votes.
-See the `BigchainDB Server documentation
-<https://docs.bigchaindb.com/projects/server/en/latest/index.html>`_
-for more information.
-(You can switch to the docs of a different version
-using the selector in the lower left corner of the screen.)
 
 
 BigchainDB Server with MongoDB

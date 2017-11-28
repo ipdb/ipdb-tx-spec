@@ -41,8 +41,3 @@ Here's an example CREATE transaction as JSON:
         },
         "metadata": null
     }
-
-
-There are more example transactions
-in :ref:`the HTTP API docs <HTTP API>`
-and the docs of various drivers.

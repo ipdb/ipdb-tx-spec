@@ -66,4 +66,4 @@ target/
 .python-version
 
 # Just in time documentation
-docs/protocol/source/http-samples
+http-samples/

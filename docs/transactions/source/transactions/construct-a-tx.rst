@@ -46,7 +46,7 @@ The result (``tx1``) is the :term:`associative array` form
 of an "unfulfilled transaction."
 We use that to construct the associated fulfilled transaction:
 
-#. :ref:`Convert tx1 to an IPDB Protocol standard JSON string
+#. :ref:`Convert tx1 to an IPDB standard JSON string
    <JSON Serialization & Deserialization>` named ``tx1_json``.
 #. :ref:`Convert tx1_json to bytes <Converting Strings to Bytes>`.
    Call the result ``tx1_bytes``.

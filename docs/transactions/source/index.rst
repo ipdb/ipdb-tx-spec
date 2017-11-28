@@ -2,16 +2,11 @@ The IPDB Protocol
 =================
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    introduction
    versioning
-   server-reqs
-   driver-reqs
-   http-api
-   event-stream-api
    transactions/index
-   blocks-and-votes
    common-operations/index
    implementation-deviations
    ownership

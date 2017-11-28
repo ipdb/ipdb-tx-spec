@@ -9,5 +9,5 @@ The most that *can* be said
 is that those public keys are associated with the ability
 to fulfill the conditions on the output.
 
-Contracts or other legal agreements external to the IPDB Protocol
+External contracts or other legal agreements
 may establish stronger interpretations in specific cases.
