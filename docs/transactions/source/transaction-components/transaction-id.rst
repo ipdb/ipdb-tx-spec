@@ -10,7 +10,8 @@ An example is:
 
 Here are the steps to compute it.
 
-1. Construct an :term:`associative array` named ``d`` like:
+1. Construct an :term:`associative array` named ``d`` of the form
+   (based on JSON syntax):
 
 .. code-block:: bash
 
@@ -23,11 +24,8 @@ Here are the steps to compute it.
       "metadata": metadata
     }
 
-Note how ``d`` is missing the "id" key and value.
+Note how ``d`` is missing the ``"id"`` key and value.
 
-2. In ``d``, for each of the inputs in ``inputs``, replace the value of each ``fulfillment``
-   with the equivalent of :term:`null` in your programming language.
-   Call the resulting associative array ``d2``.
-3. Compute ``id = hash_of_aa(d2)``. There's pseudocode for the ``hash_of_aa()`` function
+2. Compute ``id = hash_of_aa(d)``. There's pseudocode for the ``hash_of_aa()`` function
    on :ref:`the page about cryptographic hashes <Computing the Hash of an Associative Array>`.
    The result (``id``) is a string: the transaction ID.
