@@ -78,7 +78,7 @@ version = _version['__short_version__']
 release = _version['__version__']
 
 # General information about the project.
-project = 'The IPDB Transaction Spec verson ' + release
+project = 'The IPDB Transaction Spec version ' + release
 copyright = '2017, IPDB Contributors'
 author = 'IPDB Contributors'
 
