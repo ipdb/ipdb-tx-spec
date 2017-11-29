@@ -16,6 +16,7 @@ Here are the steps to compute it.
 .. code-block:: bash
 
    {
+      "id": null,
       "version": version,
       "inputs": inputs,
       "outputs": outputs,
@@ -24,7 +25,8 @@ Here are the steps to compute it.
       "metadata": metadata
     }
 
-Note how ``d`` is missing the ``"id"`` key and value.
+Note how ``d`` includes a key-value pair for the ``"id"`` key.
+The value must be your programming language's equivalent of :term:`null`.
 
 2. Compute ``id = hash_of_aa(d)``. There's pseudocode for the ``hash_of_aa()`` function
    on :ref:`the page about cryptographic hashes <Computing the Hash of an Associative Array>`.
