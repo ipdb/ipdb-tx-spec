@@ -26,6 +26,7 @@ This page lists the steps to construct a valid transaction.
 .. code-block:: bash
 
    {
+      "id": null,
       "version": version,
       "inputs": unfulfilled_inputs,
       "outputs": outputs,
@@ -33,6 +34,9 @@ This page lists the steps to construct a valid transaction.
       "asset": asset,
       "metadata": metadata
     }
+
+Note how ``unfulfilled_tx`` includes a key-value pair for the ``"id"`` key.
+The value must be your programming language's equivalent of :term:`null`.
 
 We will now convert ``unfulfilled_tx`` to something
 that can be signed:
@@ -58,11 +62,12 @@ that can be signed:
    by making a deep copy of ``unfulfilled_tx``.
 #. In ``tx``, change the value of ``"inputs"`` to the just-computed
    ``inputs`` (an array of fulfilled inputs).
-#. :ref:`Compute the transaction ID of tx <Transaction ID>`. Call it ``id``.
-#. Append a new key-value pair to ``tx``: ``{"id": id}``.
-   Call the result ``final_tx``.
+#. :ref:`Compute the transaction ID of tx <Transaction ID>`.
+   Call it ``computed_id``.
+#. In ``tx``, change the value of ``"id"`` to ``computed_id``.
 
-``final_tx`` is a valid fulfilled transaction.
+The final result (``tx``) is a valid fulfilled transaction
+(in the form of an associative array).
 To put it in the body of an HTTP POST request,
 you'll have to :ref:`convert it to a JSON string
 <JSON Serialization & Deserialization>`.
