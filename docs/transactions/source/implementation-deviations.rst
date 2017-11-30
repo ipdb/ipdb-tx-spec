@@ -10,8 +10,10 @@ BigchainDB Server
 -----------------
 
 `BigchainDB Server <https://github.com/bigchaindb/bigchaindb>`_
-is an IPDB-compliant server
-implemented in Python.
+is an IPDB-compliant server implemented in Python.
+
+It allows :ref:`operation <Operation>` to have the value ``"GENESIS"``,
+but only for transactions in the GENESIS block.
 
 
 BigchainDB Server with MongoDB

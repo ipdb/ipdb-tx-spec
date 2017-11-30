@@ -2,7 +2,7 @@ Transaction ID
 ==============
 
 The ID of a transaction is the SHA3-256 hash
-of the unsigned transaction, loosely speaking.
+of the transaction, loosely speaking.
 It's a string.
 An example is:
 
