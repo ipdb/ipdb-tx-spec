@@ -56,16 +56,19 @@ The output.amount Rule
 
 For all outputs, once output.amount has been converted
 from a string to an integer,
-it must be between 1 and 9×10¹⁸, inclusive.
+it must be between 1 and 9×10^18, inclusive.
 The reason for the upper bound is to keep amount within what a server
 can comfortably represent using a 64-bit signed integer,
-i.e. 9×10¹⁸ is less than 2⁶³.
+i.e. 9×10^18 is less than 2^63.
 
 The Duplicate Transaction Rule
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If a transaction is a duplicate of a previous transaction,
 then it's invalid.
+A quick way to check that is by checking
+to see if a transaction with the same transaction ID
+is already stored.
 
 The Transaction ID Rule
 ^^^^^^^^^^^^^^^^^^^^^^^
