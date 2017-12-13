@@ -43,13 +43,16 @@ This page lists the steps to construct a valid transaction.
 #. Create ``inputs`` as a deep copy of ``unfulfilled_inputs``.
 #. For each input in ``inputs``:
 
-    #. If ``operation`` is not ``"TRANSFER"``,
-       let ``string_to_sign = utx_json``,
-       otherwise let ``string_to_sign = utx_json + output_tx_id + output_index``
+    #. If ``fulfills`` is :term:`null`,
+       let ``string1 = utx_json``,
+       otherwise let ``string1 = utx_json + output_tx_id + output_index``
        where ``output_tx_id`` is the transaction ID of the output that
        this input fulfills and ``+`` means concatenate the strings.
-    #. :ref:`Convert string_to_sign to bytes <Converting Strings to Bytes>`
-       and call the result ``bytes_to_sign``.
+    #. :ref:`Convert string1 to bytes <Converting Strings to Bytes>`
+       and call the result ``bytes1``.
+    #. :ref:`Compute the SHA3-256 hash <Cryptographic Hashes>` of ``bytes1``
+       and leave the result as bytes (i.e. don't convert to a hex string).
+       Call the result ``bytes_to_sign``.
     #. fulfill the associated crypto-condition
        `using an implementation of crypto-conditions
        <https://github.com/rfcs/crypto-conditions#implementations>`_.
