@@ -39,7 +39,7 @@ import sphinx_rtd_theme
 
 # get version
 _version = {}
-with open('../../../version.py') as fp:
+with open('../version.py') as fp:
     exec(fp.read(), _version)
 
 extensions = ['sphinx.ext.autodoc',
