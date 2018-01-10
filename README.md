@@ -1,21 +1,7 @@
 # The IPDB Transaction Spec
 
-This repository contains the source material
-for the IPDB Transaction Spec (specification),
-i.e. the formal documentation of what's in an IPDB transaction,
-how to construct a valid transaction,
-and how to check if a transaction is valid.
+This repository contains the IPDB Transaction Spec (specification).
 
-There's no IPDB specification for blocks or votes.
-That may change in the future.
+Version 2.0 of the spec is in the file [v2.0/index.md](./v2.0/index.md). Other versions are in other subdirectories (or will be, once they exist).
 
-For more information about IPDB and the IPDB Foundation, see:
-
-* [The IPDB website](https://ipdb.io/)
-* [IPDB on Twitter](https://twitter.com/ipdbfoundation)
-* [The IPDB Blog](https://medium.com/ipdb-blog)
-* [Contact Us](https://ipdb.io/contact/)
-
----
-
-[Imprint](https://ipdb.io/imprint/)
+The `docs/` directory is where the spec source files were located in the past. Don't delete it yet.
