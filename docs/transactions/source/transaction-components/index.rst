@@ -1,24 +1,9 @@
 Transaction Components
 ======================
 
-A transaction can be implemented as an :term:`associative array`
-in almost any programming language (e.g. as a dictionary in Python).
-It has the following basic structure:
-
-.. code-block:: bash
-
-   {
-      "id": id,
-      "version": version,
-      "inputs": inputs,
-      "outputs": outputs,
-      "operation": operation,
-      "asset": asset,
-      "metadata": metadata
-    }
-
-You may wonder where the transaction signatures are.
-They're in the inputs.
+The IPDB Transaction Spec has moved.
+You can find it (all versions) at
+`https://github.com/ipdb/ipdb-tx-spec <https://github.com/ipdb/ipdb-tx-spec>`_
 
 .. toctree::
    :maxdepth: 1
