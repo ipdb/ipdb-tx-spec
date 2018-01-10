@@ -76,7 +76,7 @@ Be sure to check the value of `"version"` in the transaction.
 
 A transaction can be implemented as an <a href="#term-associative-array"><span>associative array</span></a> in almost any programming language (e.g. as a dictionary in Python). A transaction has the following basic structure:
 
-```json
+```text
 {
     "id": id,
     "version": version,
@@ -98,9 +98,9 @@ The ID of a transaction is the SHA3-256 hash of the transaction, loosely speakin
 
 Here are the steps to compute it:
 
-First, construct an <a href="#term-associative-array"><span>associative array</span></a> named `d` of the form (based on JSON syntax):
+First, construct an <a href="#term-associative-array"><span>associative array</span></a> named `d` of the form:
 
-```json
+```text
 {
     "id": null,
     "version": version,
@@ -112,7 +112,7 @@ First, construct an <a href="#term-associative-array"><span>associative array</s
  }
 ```
 
-Note how `d` includes a key-value pair for the `"id"` key. The value must be your programming language’s equivalent of <a href="#term-null"><span>null</span></a>.
+Note how `d` includes a key-value pair for the `"id"` key. The value must be your programming language’s equivalent of <a href="#term-null"><span>null</span></a> (e.g. `None` in Python).
 
 Next, compute `id = hash_of_aa(d)`. There’s pseudocode for the `hash_of_aa()` function on <a href="#computing-the-hash-of-an-associative-array">elsewhere in this document</a>. The result (`id`) is a string: the transaction ID.
 
@@ -134,7 +134,7 @@ There’s a high-level overview of transaction inputs and outputs in <a href="ht
 
 An input can be implemented as an <a href="#term-associative-array"><span>associative array</span></a> in almost any programming language (e.g. as a dictionary in Python). It has the following basic structure:
 
-```json
+```text
 {
     "fulfills": {
         "transaction_id": transaction_id,
@@ -197,7 +197,7 @@ Each output indicates the crypto-conditions which must be satisfied by anyone wi
 
 An output can be implemented as an <a href="#term-associative-array"><span>associative array</span></a> in almost any programming language (e.g. as a dictionary in Python). It has the following basic structure:
 
-```json
+```text
 {
     "condition": condition,
     "public_keys": [public_key_1, public_key_2, etc.],
@@ -231,7 +231,7 @@ In general, in a TRANSFER transaction, the sum of the output amounts must be the
 
 A condition can be implemented as an <a href="#term-associative-array"><span>associative array</span></a> in almost any programming language (e.g. as a dictionary in Python). It has the following basic structure:
 
-```json
+```text
 {
     "details": subcondition,
     "uri": uri
@@ -270,7 +270,7 @@ One can fulfill a (sub)condition of this type by signing a message with the priv
 
 A subcondition of type THRESHOLD-SHA-256 can be implemented as an <a href="#term-associative-array"><span>associative array</span></a>. It has the following basic structure:
 
-```json
+```text
 {
     "type": "threshold-sha-256",
     "threshold": threshold,
@@ -464,7 +464,7 @@ Here's how you construct a valid transaction:
 
 8. Construct an <a href="#term-associative-array"><span>associative array</span></a> named `unfulfilled_tx` of the form (based on JSON syntax):
 
-    ```json
+    ```text
     {
         "id": null,
         "version": version,
