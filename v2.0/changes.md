@@ -11,6 +11,8 @@ Fulfillments (signatures) were then computed using "id" set to the already-compu
 
 In v2.0, all signatures (inputs) are computed first, and the message-to-sign includes an "id" key/value pair in which the value is `null`. The transaction ID is just the hash of the *fulfilled* transaction (with "id" value set to `null`).
 
+For the reasoning, see [bigchaindb/bigchaindb#1891](https://github.com/bigchaindb/bigchaindb/issues/1891).
+
 ## A Change in the Message-to-Sign
 
 In v1.0, when computing the `fulfillment` for each input, the message-to-sign was the *same* for each one (and it included the transaction ID).
