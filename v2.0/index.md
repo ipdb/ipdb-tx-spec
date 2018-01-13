@@ -50,11 +50,9 @@ In the rest of this document, "transaction" almost always means "IPDB transactio
 
 ## <span id="versioning">Versioning</span>&nbsp;<a href="#versioning" title="Permalink to this headline">¶</a>
 
-There will be several versions of this document (the IPDB Transaction Spec).
+The IPDB Transaction Spec has several versions (e.g. version 1.0, version 2.0, etc.). Each one is documented completely in one Markdown file. For example, version 1.0 is documented in the file `v1.0/index.md`.
 
-At the time of writing, there was only one *supported* version: version 2.0.
-
-If this document gets changed:
+When is a new version created?
 
 - A small change (e.g. a fix to a spelling error) won't lead to a new version number. (Git commit hashes can be used to distinguish those.)
 - A change that adds a new feature in a backwards-compatible way will increase the minor version number, e.g. 3.4 to 3.5. A new spec file/document must be created.
