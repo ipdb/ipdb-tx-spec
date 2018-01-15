@@ -88,7 +88,7 @@ A transaction can be implemented as an <a href="#term-associative-array"><span>a
 
 You may wonder where the transaction signatures are. They’re in the inputs.
 
-<h3 id="tx-transaction-id">Transaction Components: Transaction ID</h3>&nbsp;<a href="#tx-transaction-id" title="Permalink to this headline">¶</a>
+<h3 id="tx-transaction-id">Transaction Components: Transaction ID&nbsp;<a href="#tx-transaction-id" title="Permalink to this headline">¶</a></h3>
 
 The ID of a transaction is the SHA3-256 hash of the transaction, loosely speaking. It’s a string. An example is:
 
