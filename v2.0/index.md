@@ -2,38 +2,43 @@
 
 Overseer: Troy McConaghy
 
-## Contents
+<!-- TOC depthFrom:2 depthTo:3 -->
 
--   <a href="#introduction">Introduction</a>
--   <a href="#versioning">Versioning</a>
--   <a href="#example-transactions">Example Transactions</a>
--   <a href="#transaction-components">Transaction Components</a>
-    -   <a href="#tx-transaction-id">Transaction ID</a>
-    -   <a href="#tx-version">Version</a>
-    -   <a href="#tx-inputs">Inputs</a>
-    -   <a href="#tx-outputs">Outputs</a>
-    -   <a href="#tx-conditions">Conditions</a>
-    -   <a href="#tx-operation">Operation</a>
-    -   <a href="#tx-asset">Asset</a>
-    -   <a href="#tx-metadata">Metadata</a>
--   <a href="#construct-a-tx">How to Construct a Transaction</a>
--   <a href="#common-operations">Common Operations</a>
-    -   <a href="#json-serialization">JSON Serialization &amp; Deserialization</a>
-    -   <a href="#converting-strings-to-bytes">Converting Strings to Bytes</a>
-    -   <a href="#cryptographic-hashes">Cryptographic Hashes</a>
-    -   <a href="#cryptographic-keys-and-signatures">Cryptographic Keys &amp; Signatures</a>
--   <a href="#transaction-validation">Transaction Validation</a>
-    -   <a href="#how-validation-code-decides-which-version-to-use">How Validation Code Decides Which Version to Use</a>
-    -   <a href="#json-schema-validation">JSON Schema Validation</a>
-    -   <a href="#other-constraints">Other Constraints</a>
--   <a href="#implementation-specific-deviations">Implementation-Specific Deviations</a>
-    -   <a href="#bigchaindb-server-deviations">BigchainDB Server Deviations</a>
--   <a href="#note-about-owners">A Note about Owners</a>
--   <a href="#glossary">Glossary</a>
+- [Introduction](#introduction)
+- [Versioning](#versioning)
+- [Example Transactions](#example-transactions)
+- [Transaction Components](#transaction-components)
+    - [Transaction Components: Transaction ID](#transaction-components-transaction-id)
+    - [Transaction Components: Version](#transaction-components-version)
+    - [Transaction Components: Inputs](#transaction-components-inputs)
+    - [Transaction Components: Outputs](#transaction-components-outputs)
+    - [Transaction Components: Conditions](#transaction-components-conditions)
+    - [Transaction Components: Operation](#transaction-components-operation)
+    - [Transaction Components: Asset](#transaction-components-asset)
+    - [Transaction Components: Metadata](#transaction-components-metadata)
+- [How to Construct a Transaction](#how-to-construct-a-transaction)
+- [Common Operations](#common-operations)
+    - [JSON Serialization and Deserialization](#json-serialization-and-deserialization)
+    - [Converting Strings to Bytes](#converting-strings-to-bytes)
+    - [Cryptographic Hashes](#cryptographic-hashes)
+    - [Cryptographic Keys and Signatures](#cryptographic-keys-and-signatures)
+- [Transaction Validation](#transaction-validation)
+    - [How Validation Code Decides Which Version to Use](#how-validation-code-decides-which-version-to-use)
+    - [JSON Schema Validation](#json-schema-validation)
+    - [Other Constraints](#other-constraints)
+- [Implementation-Specific Deviations](#implementation-specific-deviations)
+    - [BigchainDB Server Deviations](#bigchaindb-server-deviations)
+- [A Note about Owners](#a-note-about-owners)
+- [Glossary](#glossary)
+    - [associative array](#associative-array)
+    - [list](#list)
+    - [null](#null)
+
+<!-- /TOC -->
 
 ------------------------------------------------------------------------
 
-## <span id="introduction">Introduction</span>&nbsp;<a href="#introduction" title="Permalink to this headline">¶</a>
+## Introduction
 
 Suppose Alice the accountant wants to store some information in the Awesome Accounting Network (AAN), a network which validates and stores IPDB transactions. First she would construct an IPDB transaction object on her computer. It must have a particular data structure. She would then convert that object into a sequence of bits or bytes to be sent to the AAN (i.e. she would serialize the transaction).
 
@@ -48,7 +53,7 @@ Note: IPDB is short for Interplanetary Database.
 
 In the rest of this document, "transaction" almost always means "IPDB transaction."
 
-## <span id="versioning">Versioning</span>&nbsp;<a href="#versioning" title="Permalink to this headline">¶</a>
+## Versioning
 
 The IPDB Transaction Spec has several versions (e.g. version 1.0, version 2.0, etc.). Each one is documented completely in one Markdown file. For example, version 1.0 is documented in the file `v1.0/index.md`.
 
@@ -60,7 +65,7 @@ When is a new version created?
 
 Also see the <a href="#tx-version">section about the value of "version" inside transactions</a>.
 
-## <span id="example-transactions">Example Transactions</span>&nbsp;<a href="#example-transactions" title="Permalink to this headline">¶</a>
+## Example Transactions
 
 You can find example transactions in:
 
@@ -70,7 +75,7 @@ You can find example transactions in:
 
 Be sure to check the value of `"version"` in the transaction.
 
-## <span id="transaction-components">Transaction Components</span>&nbsp;<a href="#transaction-components" title="Permalink to this headline">¶</a>
+## Transaction Components
 
 A transaction can be implemented as an <a href="#term-associative-array"><span>associative array</span></a> in almost any programming language (e.g. as a dictionary in Python). A transaction has the following basic structure:
 
@@ -88,7 +93,7 @@ A transaction can be implemented as an <a href="#term-associative-array"><span>a
 
 You may wonder where the transaction signatures are. They’re in the inputs.
 
-### <span id="tx-transaction-id">Transaction Components: Transaction ID</span>&nbsp;<a href="#tx-transaction-id" title="Permalink to this headline">¶</a>
+### Transaction Components: Transaction ID
 
 The ID of a transaction is the SHA3-256 hash of the transaction, loosely speaking. It’s a string. An example is:
 
@@ -114,7 +119,7 @@ Note how `d` includes a key-value pair for the `"id"` key. The value must be you
 
 Next, compute `id = hash_of_aa(d)`. There’s pseudocode for the `hash_of_aa()` function on <a href="#computing-the-hash-of-an-associative-array">elsewhere in this document</a>. The result (`id`) is a string: the transaction ID.
 
-### <span id="tx-version">Transaction Components: Version</span>&nbsp;<a href="#tx-version" title="Permalink to this headline">¶</a>
+### Transaction Components: Version
 
 The version indicates the transaction validation rules to be used when validating the transaction, i.e. the rules associated with that version of the IPDB Transaction Spec. It must be a string like `"2.0"` or `"5.0"`.
 
@@ -122,7 +127,7 @@ If the value of `"version"` is `"2.0"`, for example, then the transaction will b
 
 To indicate version 2.0, the only allowed value is `"2.0"` (not `"2"`, `"v2"`, `"v2.0"`, `"two"`, `"Jack's favorite version."` or anything else).
 
-### <span id="tx-inputs">Transaction Components: Inputs</span>&nbsp;<a href="#tx-inputs" title="Permalink to this headline">¶</a>
+### Transaction Components: Inputs
 
 The value of `"inputs"` is a <a href="#term-list"><span>list</span></a> of transaction inputs. (It might be implemented as an array, tuple, or something else in your programming language.)
 
@@ -187,7 +192,7 @@ The specifics of how to compute a fulfillment for a condition (and the associate
 
 > An Aside: The basic steps to compute a fulfillment string are: 1. Construct the fulfillment as per the crypto-conditions spec. 2. Encode the fulfillment to bytes using the <a href="http://www.itu.int/ITU-T/recommendations/rec.aspx?rec=12483&amp;lang=en">ASN.1 Distinguished Encoding Rules (DER)</a>. 3. Encode the resulting bytes using “base64url” (*not* typical base64) as per <a href="https://tools.ietf.org/html/rfc4648#section-5">RFC 4648, Section 5</a>.
 
-### <span id="tx-outputs">Transaction Components: Outputs</span>&nbsp;<a href="#tx-outputs" title="Permalink to this headline">¶</a>
+### Transaction Components: Outputs
 
 The value of `"outputs"` is a <a href="#term-list"><span>list</span></a> of transaction outputs. (It might be implemented as an array, tuple, or something else in your programming language.)
 
@@ -203,7 +208,7 @@ An output can be implemented as an <a href="#term-associative-array"><span>assoc
 }
 ```
 
-#### The Keys in a Transaction Output<a href="#the-keys-in-a-transaction-output" title="Permalink to this headline">¶</a>
+#### The Keys in a Transaction Output
 
 **condition**
 
@@ -225,7 +230,7 @@ If Jack did the latter, he could make a TRANSFER transaction to transfer the 56 
 
 In general, in a TRANSFER transaction, the sum of the output amounts must be the same as the sum of the outputs that it transfers (i.e. the sum of the "input amounts").
 
-### <span id="tx-conditions">Transaction Components: Conditions</span>&nbsp;<a href="#tx-conditions" title="Permalink to this headline">¶</a>
+### Transaction Components: Conditions
 
 A condition can be implemented as an <a href="#term-associative-array"><span>associative array</span></a> in almost any programming language (e.g. as a dictionary in Python). It has the following basic structure:
 
@@ -393,13 +398,13 @@ uri = threshold_sha256.condition.serialize_uri()
 
 To change it into a 1-of-2 condition, just change the value of `threshold` to 1 and recompute the condition URI.
 
-### <span id="tx-operation">Transaction Components: Operation</span>&nbsp;<a href="#tx-operation" title="Permalink to this headline">¶</a>
+### Transaction Components: Operation
 
 The operation indicates the type/kind of transaction, and how it should be validated. It must be a string. The allowed values are `"CREATE"` and `"TRANSFER"`.
 
 Note: Some implementations may allow other values, but maybe only internally. For example, BigchainDB Server allows the value `"GENESIS"`. See <a href="#implementation-specific-deviations"><span>the section about implementation-specific deviations</span></a>.
 
-### <span id="tx-asset">Transaction Components: Asset</span>&nbsp;<a href="#tx-asset" title="Permalink to this headline">¶</a>
+### Transaction Components: Asset
 
 In a CREATE transaction, an asset can be the equivalent of <a href="#term-null"><span>null</span></a>, or an <a href="#term-associative-array"><span>associative array</span></a> containing exactly one key-value pair. The key must be `"data"` and the value can be any valid associative array. Here’s a JSON example:
 
@@ -424,7 +429,7 @@ In a TRANSFER transaction, an asset can be the equivalent of <a href="#term-null
 }
 ```
 
-### <span id="tx-metadata">Transaction Components: Metadata</span>&nbsp;<a href="#tx-metadata" title="Permalink to this headline">¶</a>
+### Transaction Components: Metadata
 
 User-provided transaction metadata.
 
@@ -442,7 +447,7 @@ It can be any valid <a href="#term-associative-array"><span>associative array</s
 }
 ```
 
-## <span id="construct-a-tx">How to Construct a Transaction</span>&nbsp;<a href="#how-to-construct-a-transaction" title="Permalink to this headline">¶</a>
+## How to Construct a Transaction
 
 Here's how you construct a valid transaction:
 
@@ -500,9 +505,9 @@ The final result (`tx`) is a valid fulfilled transaction (in the form of an asso
 
 The documentation of the BigchainDB Python Driver has a page titled <a href="https://docs.bigchaindb.com/projects/py-driver/en/latest/handcraft.html">“Handcrafting Transactions”</a> which shows how to do all of the above in Python (using a Python implementation of crypto-conditions).
 
-## <span id="common-operations">Common Operations</span>&nbsp;<a href="#common-operations" title="Permalink to this headline">¶</a>
+## Common Operations
 
-### <span id="json-serialization">JSON Serialization & Deserialization</span>&nbsp;<a href="#json-serialization" title="Permalink to this headline">¶</a>
+### JSON Serialization and Deserialization
 
 In the IPDB Transaction Spec, “JSON serialization” is the standard process to convert an <a href="#term-associative-array"><span>associative array</span></a> (such as a Python dict) to a standard Unicode JSON string. “JSON deserialization” is the reverse. In the IPDB Transaction Spec, some constraints are imposed on the JSON string:
 
@@ -544,7 +549,7 @@ To deserialize a standard Unicode JSON string to a dictionary:
 new_dict = rapidjson.loads(json_str)
 ```
 
-### <span id="converting-strings-to-bytes">Converting Strings to Bytes</span>&nbsp;<a href="#converting-strings-to-bytes" title="Permalink to this headline">¶</a>
+### Converting Strings to Bytes
 
 Most common programming languages have some way to convert a Unicode string to bytes. To do that, one must specify the encoding; in the case of the IPDB Transaction Spec, the encoding must be <a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a>.
 
@@ -558,9 +563,9 @@ example_bytes = example_str.encode()
 
 That works because the Python 3 <a href="https://docs.python.org/3/library/stdtypes.html#str.encode">str.encode() method</a> assumes a UTF-8 encoding by default.
 
-### <span id="cryptographic-hashes">Cryptographic Hashes</span>&nbsp;<a href="#cryptographic-hashes" title="Permalink to this headline">¶</a>
+### Cryptographic Hashes
 
-#### <span id="ipdb-standard-hashes">IPDB-Standard Hashes</span>&nbsp;<a href="#ipdb-standard-hashes" title="Permalink to this headline">¶</a>
+#### IPDB-Standard Hashes
 
 When computing a cryptographic hash (such as the <a href="#tx-transaction-id"><span>Transaction ID</span></a>), and *not* falling back to some other protocol (such as crypto-conditions) to specify how the hash should be computed, the computed hash must be a NIST-standard SHA3-256 hash.
 
@@ -583,7 +588,7 @@ hash_as_hex_string = sha3.sha3_256(json_bytes).hexdigest()
 
 Note: `sha3.sha3_256(json_bytes)` is an intermediate object of class `_pysha3.sha3_256`.
 
-#### <span id="computing-the-hash-of-an-associative-array">Computing the Hash of an Associative Array</span>&nbsp;<a href="#computing-the-hash-of-an-associative-array" title="Permalink to this headline">¶</a>
+#### Computing the Hash of an Associative Array
 
 There’s an IPDB-standard way to compute the hash of an <a href="#term-associative-array"><span>associative array</span></a>. We’ve called that function `hash_of_aa()` elsewhere in this documentation. It takes an associative array `d` as input and returns a string as output. Here is what that function must do:
 
@@ -591,7 +596,7 @@ There’s an IPDB-standard way to compute the hash of an <a href="#term-associat
 2.  Convert `d_json` to bytes (i.e. a sequence of bytes). See the section about <a href="#converting-strings-to-bytes"><span>converting strings to bytes</span></a>. Call the resulting bytes `d_bytes`.
 3.  Compute the SHA3-256 hash of `d_bytes` as outlined above, and represent the hash as a hexadecimal string.
 
-### <span id="cryptographic-keys-and-signatures">Cryptographic Keys & Signatures</span>&nbsp;<a href="#cryptographic-keys-and-signatures" title="Permalink to this headline">¶</a>
+### Cryptographic Keys and Signatures
 
 The IPDB Transaction Spec uses the <a href="https://ed25519.cr.yp.to/">Ed25519</a> public-key signature system for:
 
@@ -626,7 +631,7 @@ The keys and signatures that go into <a href="#tx-outputs"><span>outputs</span><
 
 The Python package <a href="https://pypi.python.org/pypi/BigchainDB">BigchainDB</a> is a Python 3 reference implementation of an IPDB-compliant server. Its source code is in the <a href="https://github.com/bigchaindb/bigchaindb/">bigchaindb/bigchaindb</a> repository on GitHub. There you can see how it generates public/private key pairs, calculates signatures, and verifies signatures: it uses the <a href="https://github.com/bigchaindb/cryptoconditions">cryptoconditions package</a>. The cryptoconditions package, in turn, uses the <a href="https://pypi.python.org/pypi/PyNaCl">PyNaCl package</a>, a Python binding to <a href="https://github.com/jedisct1/libsodium">libsodium</a>, which is a fork of the Networking and Cryptography library.
 
-#### Computing the Signature of an Associative Array<a href="#computing-the-signature-of-an-associative-array" title="Permalink to this headline">¶</a>
+#### Computing the Signature of an Associative Array
 
 There’s an IPDB-standard way to compute the signature of an <a href="#term-associative-array"><span>associative array</span></a>. We’ve called that function `sig_of_aa()` elsewhere in this documentation. It takes two inputs: an associative array `d` and a `private_key`. It returns a signature string as output. Here is what that function must do:
 
@@ -634,17 +639,17 @@ There’s an IPDB-standard way to compute the signature of an <a href="#term-ass
 2.  Convert `d_json` to bytes (i.e. a sequence of bytes). See the section about <a href="#converting-strings-to-bytes"><span>converting strings to bytes</span></a>. Call the resulting bytes `d_bytes`.
 3.  Calculate the Ed25519 signature of `d_bytes` using the given `private_key`.
 
-## <span id="transaction-validation">Transaction Validation</span>&nbsp;<a href="#transaction-validation" title="Permalink to this headline">¶</a>
+## Transaction Validation
 
 If a transaction satisfies the constraints (or rules) listed below, then it is considered valid. The process of checking those constraints is called transaction validation.
 
 Each version of the IPDB Transaction Spec may have different constraints. That is, the constraints may change from one version to the next. See the <a href="#versioning">section on versioning</a> and the <a href="#tx-version">section on transaction version</a>.
 
-### <span id="how-validation-code-decides-which-version-to-use">How Validation Code Decides Which Version to Use</span>&nbsp;<a href="#how-validation-code-decides-which-version-to-use" title="Permalink to this headline">¶</a>
+### How Validation Code Decides Which Version to Use
 
 When given a transaction to validate, validation code should check the value of `"version"` inside the transaction. The valid values are those with a corresponding set of JSON Schema files (which can be found in the `tx_schema` directory of the <a href="https://github.com/ipdb/ipdb-tx-spec">IPDB Transaction Spec repository</a>). If `"version"` doesn’t have a valid value, then the transaction is invalid. Otherwise, the transaction should be validated according to the validation constraints described in that version of the IPDB Transaction Spec.
 
-### <span id="json-schema-validation">JSON Schema Validation</span>&nbsp;<a href="#json-schema-validation" title="Permalink to this headline">¶</a>
+### JSON Schema Validation
 
 JSON Schema Validation is done by checking the transaction against a formal <a href="http://json-schema.org/">JSON Schema</a> defined in a set of <a href="http://json-schema.org/">JSON Schema</a> files. Those files can be found in the `tx_schema/` directory of the <a href="https://github.com/ipdb/ipdb-tx-spec">IPDB Transaction Spec repository</a>.
 
@@ -652,7 +657,7 @@ Tip 1: There’s a nice explanation of JSON Schema in the website <a href="https
 
 Tip 2: Python 3 code for checking a transaction against JSON Schema files can be found in the <a href="https://github.com/bigchaindb/bigchaindb">source code of BigchainDB Server</a>. At the time of writing, it was in the file `bigchaindb/common/schema/__init__.py`.
 
-### <span id="other-constraints">Other Constraints</span>&nbsp;<a href="#other-constraints" title="Permalink to this headline">¶</a>
+### Other Constraints
 
 #### The output.amount Rule
 
@@ -685,11 +690,11 @@ Note: The first two rules prevent double spending.
 
 Regardless of whether the transaction is a CREATE or TRANSFER transaction: For all inputs, `input.fulfillment` must be valid. See the <a href="#tx-inputs"><span>section about inputs</span></a> for more details about what that means.
 
-## <span id="implementation-specific-deviations">Implementation-Specific Deviations</span>&nbsp;<a href="#implementation-specific-deviations" title="Permalink to this headline">¶</a>
+## Implementation-Specific Deviations
 
 Some implementations of IPDB-compliant servers or drivers deviate from the IPDB Transaction Spec.
 
-### <span id="bigchaindb-server-deviations">BigchainDB Server Deviations</span>&nbsp;<a href="#bigchaindb-server-deviations" title="Permalink to this headline">¶</a>
+### BigchainDB Server Deviations
 
 <a href="https://github.com/bigchaindb/bigchaindb">BigchainDB Server</a> is an IPDB-compliant server implemented in Python.
 
@@ -704,23 +709,23 @@ When BigchainDB Server is used *with MongoDB*, it inherits some quirks from Mong
 
 - If there’s a key named `"language"` anywhere in the JSON documents stored in `asset.data` or `metadata`, then its value must be one of the <a href="https://docs.mongodb.com/manual/reference/text-search-languages/">supported values (language codes)</a>, because MongoDB uses that to guide its full text search. Moreover, BigchainDB Server only allows the language codes supported by *MongoDB Community Edition* (not MongoDB Enterprise).
 
-## <span id="note-about-owners">A Note about Owners</span>&nbsp;<a href="#a-note-about-owners" title="Permalink to this headline">¶</a>
+## A Note about Owners
 
 The public keys associated with an unspent output are sometimes called the “owners” of the associated shares in an asset, but the legal entities associated with those public keys may or may not be “owners” in any legal sense. The most that *can* be said is that those public keys are associated with the ability to fulfill the conditions on the output.
 
 External contracts or other legal agreements may establish stronger interpretations in specific cases.
 
-## <span id="glossary">Glossary</span>&nbsp;<a href="#glossary" title="Permalink to this headline">¶</a>
+## Glossary
 
-### <span id="term-associative-array">associative array</span>
+### associative array
 
 A collection of key/value (or name/value) pairs such that each possible key appears at most once in the collection. In JavaScript (and JSON), all objects behave as associative arrays with string-valued keys. In Python and .NET, associative arrays are called *dictionaries*. In Java and Go, they are called *maps*. In Ruby, they are called *hashes*. See also: Wikipedia’s articles for <a href="https://en.wikipedia.org/wiki/Associative_array"><span>Associative array</span></a> and <a href="https://en.wikipedia.org/wiki/Comparison_of_programming_languages_(associative_array)">Comparison of programming languages (associative array)</a>
 
-### <span id="term-list">list</span>
+### list
 
 In this document, when we say "list", we mean a finite ordered collection. Every programming language has one or more ways of handling those, e.g. lists, tuples or arrays. They are arrays in JSON.
 
-### <span id="term-null">null</span>
+### null
 
 `null` in JavaScript, JSON, Java and C#. `None` in Python. `nil` in Ruby and Go. If it’s a value in an associative array and you convert it to a JSON string, it should convert to `null` (with no quotes around it).
 
