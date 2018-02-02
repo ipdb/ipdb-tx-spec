@@ -32,7 +32,7 @@ Overseer: Troy McConaghy
 - [Glossary](#glossary)
     - [associative array](#associative-array)
     - [list](#list)
-    - [null](#null)
+    - [ctnull](#ctnull)
 
 <!-- /TOC -->
 
@@ -63,7 +63,7 @@ When is a new version created?
 - A change that adds a new feature in a backwards-compatible way will increase the minor version number, e.g. 3.4 to 3.5. A new spec file/document must be created.
 - Backwards-incompatible changes will increase the major version number, e.g. 5.3 to 6.0. A new spec file/document must be created.
 
-Also see the <a href="#tx-version">section about the value of "version" inside transactions</a>.
+Also see the <a href="#transaction-components-version">section about the value of "version" inside transactions</a>.
 
 ## Example Transactions
 
@@ -77,7 +77,7 @@ Be sure to check the value of `"version"` in the transaction.
 
 ## Transaction Components
 
-A transaction can be implemented as an <a href="#term-associative-array"><span>associative array</span></a> in almost any programming language (e.g. as a dictionary in Python). A transaction has the following basic structure:
+A transaction can be implemented as an <a href="#associative-array"><span>associative array</span></a> in almost any programming language (e.g. as a dictionary in Python). A transaction has the following basic structure:
 
 ```text
 {
@@ -101,7 +101,7 @@ The ID of a transaction is the SHA3-256 hash of the transaction, loosely speakin
 
 Here are the steps to compute it:
 
-First, construct an <a href="#term-associative-array"><span>associative array</span></a> named `d` of the form:
+First, construct an <a href="#associative-array"><span>associative array</span></a> named `d` of the form:
 
 ```text
 {
@@ -114,9 +114,9 @@ First, construct an <a href="#term-associative-array"><span>associative array</s
  }
 ```
 
-**Note how `d` doesn't include a key-value pair for the `"id"` key. In particular, it doesn't have an "id" key with value `null`.**
+**Note how `d` doesn't include a key-value pair for the `"id"` key.**
 
-Next, in `d`, for each of the inputs in `inputs`, replace the value of each `fulfillment` with the equivalent of <a href="#term-null"><span>null</span></a> in your programming language. Call the resulting associative array `d2`.
+Next, in `d`, for each of the inputs in `inputs`, replace the value of each `fulfillment` with <a href="#ctnull"><span>ctnull</span></a> (e.g. `None` in Python). Call the resulting associative array `d2`.
 
 Last, compute `id = hash_of_aa(d2)`. There’s pseudocode for the `hash_of_aa()` function on <a href="#computing-the-hash-of-an-associative-array">elsewhere in this document</a>. The result (`id`) is a string: the transaction ID.
 
@@ -130,13 +130,13 @@ To indicate version 2.0, the only allowed value is `"2.0"` (not `"2"`, `"v2"`, `
 
 ### Transaction Components: Inputs
 
-The value of `"inputs"` is a <a href="#term-list"><span>list</span></a> of transaction inputs. (It might be implemented as an array, tuple, or something else in your programming language.)
+The value of `"inputs"` is a <a href="#list"><span>list</span></a> of transaction inputs. (It might be implemented as an array, tuple, or something else in your programming language.)
 
-Each transaction input spends/transfers a previous <a href="#tx-outputs">transaction output</a>. A CREATE transaction must have exactly one input (i.e. `num_inputs == 1`). A TRANSFER transaction must have at least one input (i.e. `num_inputs >= 1`).
+Each transaction input spends/transfers a previous <a href="#transaction-components-outputs">transaction output</a>. A CREATE transaction must have exactly one input (i.e. `num_inputs == 1`). A TRANSFER transaction must have at least one input (i.e. `num_inputs >= 1`).
 
 There’s a high-level overview of transaction inputs and outputs in <a href="https://docs.bigchaindb.com/en/latest/transaction-concepts.html">the BigchainDB root docs page about transaction concepts</a>. “Assets” are a core concept. Transaction inputs and outputs are the mechanism by which control or ownership of an asset (or shares of an asset) is transferred. (See the <a href="#note-about-owners">note about owners</a>.) Amounts of an asset are encoded in the outputs of a transaction, and each output may be spent separately. To spend an output, the output’s condition must be met by an input that provides a corresponding fulfillment. Each output may be spent at most once, by a single input.
 
-An input can be implemented as an <a href="#term-associative-array"><span>associative array</span></a> in almost any programming language (e.g. as a dictionary in Python). It has the following basic structure:
+An input can be implemented as an <a href="#associative-array"><span>associative array</span></a> in almost any programming language (e.g. as a dictionary in Python). It has the following basic structure:
 
 ```text
 {
@@ -153,9 +153,9 @@ An input can be implemented as an <a href="#term-associative-array"><span>associ
 
 **fulfills**
 
-If the transaction is a TRANSFER transaction, then this is like a pointer to the <a href="#tx-outputs"><span>output</span></a> being spent/transferred. More specifically, it’s an <a href="#term-associative-array"><span>associative array</span></a> with two key/value pairs:
+If the transaction is a TRANSFER transaction, then this is like a pointer to the <a href="#transaction-components-outputs"><span>output</span></a> being spent/transferred. More specifically, it’s an <a href="#associative-array"><span>associative array</span></a> with two key/value pairs:
 
-- `transaction_id` is the <a href="#tx-transaction-id">ID of the transaction</a> where the output is located. It’s a string.
+- `transaction_id` is the <a href="#transaction-components-transaction-id">ID of the transaction</a> where the output is located. It’s a string.
 - `output_index` is the index of the output being spent. It’s an integer, *not a string*. Example values are `0`, `1` and `12` (*not* `"0"`, `"Roger's index"` or any other string).
 
 An example value is:
@@ -167,15 +167,15 @@ An example value is:
 }
 ```
 
-If the transaction is a CREATE transaction, then the value of `fulfills` must be the equivalent of <a href="#term-null"><span>null</span></a> in your programming language, because there is no other transaction output that it’s transferring/spending.
+If the transaction is a CREATE transaction, then the value of `fulfills` must be <a href="#ctnull"><span>ctnull</span></a> (e.g. `None` in Python), because there is no other transaction output that it’s transferring/spending.
 
 **owners\_before**
 
-This is a <a href="#term-list"><span>list</span></a> of public keys (Base58-encoded Ed25519 keys; see the <a href="#cryptographic-keys-and-signatures">section about cryptographic keys and signatures</a>).
+This is a <a href="#list"><span>list</span></a> of public keys (Base58-encoded Ed25519 keys; see the <a href="#cryptographic-keys-and-signatures">section about cryptographic keys and signatures</a>).
 
-If the transaction is a CREATE transaction, then this is a <a href="#term-list"><span>list</span></a> of public keys (strings): the *issuers* of the asset in question. Those issuers must sign the CREATE transaction, i.e. they must compute the `fulfillment` string using their private keys.
+If the transaction is a CREATE transaction, then this is a <a href="#list"><span>list</span></a> of public keys (strings): the *issuers* of the asset in question. Those issuers must sign the CREATE transaction, i.e. they must compute the `fulfillment` string using their private keys.
 
-If the transaction is a TRANSFER transaction, then this <a href="#term-list"><span>list</span></a> must agree with the `public_keys` list in the <a href="#tx-outputs"><span>output</span></a> being transferred/spent.
+If the transaction is a TRANSFER transaction, then this <a href="#list"><span>list</span></a> must agree with the `public_keys` list in the <a href="#transaction-components-outputs"><span>output</span></a> being transferred/spent.
 
 One must be careful when interpreting public keys as "owners." See the <a href="#a-note-about-owners"><span>note about owners</span></a>.
 
@@ -187,7 +187,7 @@ This is a string. An example fulfillment string is:
 
 If the transaction is a CREATE transaction, then the fulfillment must fulfill an implicit *n*-of-*n* signature condition, i.e. one signature from each of the *n* `owners_before`.
 
-If the transaction is a TRANSFER transaction, then the fulfillment must fulfill the condition in the <a href="#tx-outputs"><span>output</span></a> that is being transferred/spent. The section about <a href="#tx-conditions"><span>conditions</span></a> explains how to construct a condition object.
+If the transaction is a TRANSFER transaction, then the fulfillment must fulfill the condition in the <a href="#transaction-components-outputs"><span>output</span></a> that is being transferred/spent. The section about <a href="#transaction-components-conditions"><span>conditions</span></a> explains how to construct a condition object.
 
 The specifics of how to compute a fulfillment for a condition (and the associated fulfillment string) are given in the crypto-conditions spec. Consult the <a href="https://tools.ietf.org/html/draft-thomas-crypto-conditions-03">crypto-conditions spec (version 03)</a> or use <a href="https://github.com/rfcs/crypto-conditions#implementations">an existing implementation of crypto-conditions</a>. The section about <a href="#how-to-construct-a-transaction"><span>how to construct a transaction</span></a> gives more details, including a link to example Python code.
 
@@ -195,11 +195,11 @@ The specifics of how to compute a fulfillment for a condition (and the associate
 
 ### Transaction Components: Outputs
 
-The value of `"outputs"` is a <a href="#term-list"><span>list</span></a> of transaction outputs. (It might be implemented as an array, tuple, or something else in your programming language.)
+The value of `"outputs"` is a <a href="#list"><span>list</span></a> of transaction outputs. (It might be implemented as an array, tuple, or something else in your programming language.)
 
 Each output indicates the crypto-conditions which must be satisfied by anyone wishing to spend/transfer that output. It also indicates the number of shares of the asset tied to that output.
 
-An output can be implemented as an <a href="#term-associative-array"><span>associative array</span></a> in almost any programming language (e.g. as a dictionary in Python). It has the following basic structure:
+An output can be implemented as an <a href="#associative-array"><span>associative array</span></a> in almost any programming language (e.g. as a dictionary in Python). It has the following basic structure:
 
 ```text
 {
@@ -213,11 +213,11 @@ An output can be implemented as an <a href="#term-associative-array"><span>assoc
 
 **condition**
 
-See the <a href="#tx-conditions"><span>section about conditions</span></a>.
+See the <a href="#transaction-components-conditions"><span>section about conditions</span></a>.
 
 **public\_keys**
 
-This is a <a href="#term-list"><span>list</span></a> of public keys (Base58-encoded Ed25519 keys; see the <a href="#cryptographic-keys-and-signatures">section about cryptographic keys and signatures</a>).
+This is a <a href="#list"><span>list</span></a> of public keys (Base58-encoded Ed25519 keys; see the <a href="#cryptographic-keys-and-signatures">section about cryptographic keys and signatures</a>).
 
 It should be consistent with the public keys in the `condition`.
 
@@ -233,7 +233,7 @@ In general, in a TRANSFER transaction, the sum of the output amounts must be the
 
 ### Transaction Components: Conditions
 
-A condition can be implemented as an <a href="#term-associative-array"><span>associative array</span></a> in almost any programming language (e.g. as a dictionary in Python). It has the following basic structure:
+A condition can be implemented as an <a href="#associative-array"><span>associative array</span></a> in almost any programming language (e.g. as a dictionary in Python). It has the following basic structure:
 
 ```text
 {
@@ -244,7 +244,7 @@ A condition can be implemented as an <a href="#term-associative-array"><span>ass
 
 #### Subconditions
 
-A subcondition can be implemented as an <a href="#term-associative-array"><span>associative array</span></a>. There are two possible subcondition types:
+A subcondition can be implemented as an <a href="#associative-array"><span>associative array</span></a>. There are two possible subcondition types:
 
 1. ED25519-SHA-256
 1. THRESHOLD-SHA-256
@@ -255,7 +255,7 @@ Note: This version of the IPDB Transaction Spec conforms to versions 02 and 03 o
 
 ##### Type 1: ED25519-SHA-256
 
-A subcondition of type ED25519-SHA-256 can be implemented as an <a href="#term-associative-array"><span>associative array</span></a>. Here’s a JSON example:
+A subcondition of type ED25519-SHA-256 can be implemented as an <a href="#associative-array"><span>associative array</span></a>. Here’s a JSON example:
 
 ```json
 {
@@ -272,7 +272,7 @@ One can fulfill a (sub)condition of this type by signing a message with the priv
 
 ##### Type 2: THRESHOLD-SHA-256
 
-A subcondition of type THRESHOLD-SHA-256 can be implemented as an <a href="#term-associative-array"><span>associative array</span></a>. It has the following basic structure:
+A subcondition of type THRESHOLD-SHA-256 can be implemented as an <a href="#associative-array"><span>associative array</span></a>. It has the following basic structure:
 
 ```text
 {
@@ -284,9 +284,9 @@ A subcondition of type THRESHOLD-SHA-256 can be implemented as an <a href="#term
 
 The `type` must be the string `"threshold-sha-256"`.
 
-The `threshold` must be an integer *m* between 1 and the number of objects in the `subconditions` <a href="#term-list"><span>list</span></a> (*n*). It’s *not a string*.
+The `threshold` must be an integer *m* between 1 and the number of objects in the `subconditions` <a href="#list"><span>list</span></a> (*n*). It’s *not a string*.
 
-The `subconditions` must be a <a href="#term-list"><span>list</span></a> of one or more subconditions (*n* associative arrays). Note the recursive definition: a threshold subcondition contains a <a href="#term-list"><span>list</span></a> of subconditions, some of which may be subconditions of type THRESHOLD-SHA-256.
+The `subconditions` must be a <a href="#list"><span>list</span></a> of one or more subconditions (*n* associative arrays). Note the recursive definition: a threshold subcondition contains a <a href="#list"><span>list</span></a> of subconditions, some of which may be subconditions of type THRESHOLD-SHA-256.
 
 One can fulfill a (sub)condition of this type by fulfilling *m* of the *n* subconditions. Because of that, it’s also called an *m*-of-*n* threshold condition. An *m*-of-*n* threshold condition can be thought of as a logic gate with n Boolean inputs, where the output is TRUE if, and only if, *m* or more of the inputs are TRUE. Therefore:
 
@@ -407,7 +407,7 @@ Note: Some implementations may allow other values, but maybe only internally. Fo
 
 ### Transaction Components: Asset
 
-In a CREATE transaction, an asset can be the equivalent of <a href="#term-null"><span>null</span></a>, or an <a href="#term-associative-array"><span>associative array</span></a> containing exactly one key-value pair. The key must be `"data"` and the value can be any valid associative array. Here’s a JSON example:
+In a CREATE transaction, an asset can be <a href="#ctnull"><span>ctnull</span></a> (e.g. `None` in Python), or an <a href="#associative-array"><span>associative array</span></a> containing exactly one key-value pair. The key must be `"data"` and the value can be any valid associative array. Here’s a JSON example:
 
 ```json
 {
@@ -422,7 +422,7 @@ In a CREATE transaction, an asset can be the equivalent of <a href="#term-null">
 
 The meaning of a “valid associative array” may depend on the implementation; see the section about <a href="#implementation-specific-deviations"><span>implementation-specific deviations</span></a>.
 
-In a TRANSFER transaction, an asset can be the equivalent of <a href="#term-null"><span>null</span></a>, or an <a href="#term-associative-array"><span>associative array</span></a> containing exactly one key-value pair. The key must be `"id"` and the value must be a 64-character hex string: a <a href="#tx-transaction-id"><span>transaction ID</span></a>. Here’s a JSON example:
+In a TRANSFER transaction, an asset can be <a href="#ctnull"><span>ctnull</span></a> (e.g. `None` in Python), or an <a href="#associative-array"><span>associative array</span></a> containing exactly one key-value pair. The key must be `"id"` and the value must be a 64-character hex string: a <a href="#transaction-components-transaction-id"><span>transaction ID</span></a>. Here’s a JSON example:
 
 ```json
 {
@@ -434,7 +434,7 @@ In a TRANSFER transaction, an asset can be the equivalent of <a href="#term-null
 
 User-provided transaction metadata.
 
-It can be any valid <a href="#term-associative-array"><span>associative array</span></a>, or the equivalent of <a href="#term-null"><span>null</span></a> in your programming language. The meaning of a “valid associative array” may depend on the implementation; see the section about <a href="#implementation-specific-deviations"><span>implementation-specific deviations</span></a>. Here’s a JSON example:
+It can be any valid <a href="#associative-array"><span>associative array</span></a>, or <a href="#ctnull"><span>ctnull</span></a> (e.g. `None` in Python). The meaning of a “valid associative array” may depend on the implementation; see the section about <a href="#implementation-specific-deviations"><span>implementation-specific deviations</span></a>. Here’s a JSON example:
 
 ```json
 {
@@ -452,23 +452,23 @@ It can be any valid <a href="#term-associative-array"><span>associative array</s
 
 Here's how you construct a valid transaction:
 
-1. Set a variable named `version` to a <a href="#tx-version"><span>valid version value</span></a>.
+1. Set a variable named `version` to a <a href="#transaction-components-version"><span>valid version value</span></a>.
 
-2. Set a variable named `operation` to a <a href="#tx-operation"><span>valid operation value</span></a>.
+2. Set a variable named `operation` to a <a href="#transaction-components-operation"><span>valid operation value</span></a>.
 
-3. Set a variable named `asset` to a <a href="#tx-asset"><span>valid asset value</span></a>.
+3. Set a variable named `asset` to a <a href="#transaction-components-asset"><span>valid asset value</span></a>.
 
-4. Set a variable named `metadata` to a <a href="#tx-metadata"><span>valid metadata value</span></a>.
+4. Set a variable named `metadata` to a <a href="#transaction-components-metadata"><span>valid metadata value</span></a>.
 
 5. Generate or get all the required <a href="#cryptographic-keys-and-signatures"><span>public keys</span></a> (i.e. keys of asset issuers, keys of old owners, keys of new owners).
 
-6. Construct a <a href="#term-list"><span>list</span></a> named `outputs` of all the <a href="#tx-outputs"><span>outputs</span></a> that should be in the transaction. (Note: Each output includes a <a href="#tx-conditions"><span>condition</span></a>.)
+6. Construct a <a href="#list"><span>list</span></a> named `outputs` of all the <a href="#transaction-components-outputs"><span>outputs</span></a> that should be in the transaction. (Note: Each output includes a <a href="#transaction-components-conditions"><span>condition</span></a>.)
 
-7. Construct a <a href="#term-list"><span>list</span></a> named `unfulfilled_inputs` of all the <a href="#tx-inputs"><span>inputs</span></a> that should be in the transaction. All fulfillment strings should be set to the equivalent of <a href="#term-null"><span>null</span></a> in your programming language. (We’re building an “unfulfilled transaction” first.)
+7. Construct a <a href="#list"><span>list</span></a> named `unfulfilled_inputs` of all the <a href="#transaction-components-inputs"><span>inputs</span></a> that should be in the transaction. All fulfillment strings should be set to <a href="#ctnull"><span>ctnull</span></a> (e.g. `None` in Python). (We’re building an “unfulfilled transaction” first.)
 
-8. <a href="#tx-transaction-id">Compute the transaction ID</a> and store it in a variable named `id`.
+8. <a href="#transaction-components-transaction-id">Compute the transaction ID</a> and store it in a variable named `id`.
 
-9. Construct an <a href="#term-associative-array"><span>associative array</span></a> named `tx1` of the form (based on JSON syntax):
+9. Construct an <a href="#associative-array"><span>associative array</span></a> named `tx1` of the form:
 
     ```text
     {
@@ -481,7 +481,7 @@ Here's how you construct a valid transaction:
         "metadata": metadata
     }
     ```
-    The result (`tx1`) is the <a href="#term-associative-array"><span>associative array</span></a> form of an "unfulfilled transaction." We use that to construct the associated fulfilled transaction.
+    The result (`tx1`) is the <a href="#associative-array"><span>associative array</span></a> form of an "unfulfilled transaction." We use that to construct the associated fulfilled transaction.
 
 10.  <a href="#json-serialization"><span>Convert tx1 to an IPDB-standard JSON string</span></a> named `tx1_json`.
 
@@ -503,7 +503,7 @@ The documentation of the BigchainDB Python Driver has a page titled <a href="htt
 
 ### JSON Serialization and Deserialization
 
-In the IPDB Transaction Spec, “JSON serialization” is the standard process to convert an <a href="#term-associative-array"><span>associative array</span></a> (such as a Python dict) to a standard Unicode JSON string. “JSON deserialization” is the reverse. In the IPDB Transaction Spec, some constraints are imposed on the JSON string:
+In the IPDB Transaction Spec, “JSON serialization” is the standard process to convert an <a href="#associative-array"><span>associative array</span></a> (such as a Python dict) to a standard Unicode JSON string. “JSON deserialization” is the reverse. In the IPDB Transaction Spec, some constraints are imposed on the JSON string:
 
 - All keys must be strings
 - The separator after each key is `:` with no spaces on either side.
@@ -561,7 +561,7 @@ That works because the Python 3 <a href="https://docs.python.org/3/library/stdty
 
 #### IPDB-Standard Hashes
 
-When computing a cryptographic hash (such as the <a href="#tx-transaction-id"><span>Transaction ID</span></a>), and *not* falling back to some other protocol (such as crypto-conditions) to specify how the hash should be computed, the computed hash must be a NIST-standard SHA3-256 hash.
+When computing a cryptographic hash (such as the <a href="#transaction-components-transaction-id"><span>Transaction ID</span></a>), and *not* falling back to some other protocol (such as crypto-conditions) to specify how the hash should be computed, the computed hash must be a NIST-standard SHA3-256 hash.
 
 > **Warning: During the finalization of SHA3, NIST changed the delimiter suffix from 0x01 to 0x06. Older SHA3 libraries might use the old suffix, so make sure you use an up-to-date library when calculating SHA3-256 hashes.**
 
@@ -584,7 +584,7 @@ Note: `sha3.sha3_256(json_bytes)` is an intermediate object of class `_pysha3.sh
 
 #### Computing the Hash of an Associative Array
 
-There’s an IPDB-standard way to compute the hash of an <a href="#term-associative-array"><span>associative array</span></a>. We’ve called that function `hash_of_aa()` elsewhere in this documentation. It takes an associative array `d` as input and returns a string as output. Here is what that function must do:
+There’s an IPDB-standard way to compute the hash of an <a href="#associative-array"><span>associative array</span></a>. We’ve called that function `hash_of_aa()` elsewhere in this documentation. It takes an associative array `d` as input and returns a string as output. Here is what that function must do:
 
 1.  Convert `d` to a standard Unicode JSON string. See the section about <a href="#json-serialization"><span>JSON serialization and deserialization</span></a>. Call the resulting string `d_json`.
 2.  Convert `d_json` to bytes (i.e. a sequence of bytes). See the section about <a href="#converting-strings-to-bytes"><span>converting strings to bytes</span></a>. Call the resulting bytes `d_bytes`.
@@ -619,7 +619,7 @@ When representing calculated *signatures* as strings, they must be represented w
 
     "8Z6GJFLSvHmWVqN4dJHshcamNR3cYMwsk9bKScjd32ZgMEtbVSrujHDqrPpdyzBo3tpdse4N4YHXZGXdHfjZZhH"
 
-The keys and signatures that go into <a href="#tx-outputs"><span>outputs</span></a> and <a href="#tx-inputs"><span>inputs</span></a> follow the <a href="https://tools.ietf.org/html/draft-thomas-crypto-conditions-03">crypto-conditions specification</a>. However, the IPDB Transaction Spec only allows for Ed25519 keys and signatures. (It doesn’t allow for the RSA ones which are also part of the crypto-conditions specification.) The Ed25519 functions used to generate keys, calculate signatures, and verify signatures are the *same* across the IPDB Transaction Spec. Those calculations aren’t done differently inside inputs or outputs.
+The keys and signatures that go into <a href="#transaction-components-outputs"><span>outputs</span></a> and <a href="#transaction-components-inputs"><span>inputs</span></a> follow the <a href="https://tools.ietf.org/html/draft-thomas-crypto-conditions-03">crypto-conditions specification</a>. However, the IPDB Transaction Spec only allows for Ed25519 keys and signatures. (It doesn’t allow for the RSA ones which are also part of the crypto-conditions specification.) The Ed25519 functions used to generate keys, calculate signatures, and verify signatures are the *same* across the IPDB Transaction Spec. Those calculations aren’t done differently inside inputs or outputs.
 
 **Example Python 3 Code**
 
@@ -627,7 +627,7 @@ The Python package <a href="https://pypi.python.org/pypi/BigchainDB">BigchainDB<
 
 #### Computing the Signature of an Associative Array
 
-There’s an IPDB-standard way to compute the signature of an <a href="#term-associative-array"><span>associative array</span></a>. We’ve called that function `sig_of_aa()` elsewhere in this documentation. It takes two inputs: an associative array `d` and a `private_key`. It returns a signature string as output. Here is what that function must do:
+There’s an IPDB-standard way to compute the signature of an <a href="#associative-array"><span>associative array</span></a>. We’ve called that function `sig_of_aa()` elsewhere in this documentation. It takes two inputs: an associative array `d` and a `private_key`. It returns a signature string as output. Here is what that function must do:
 
 1.  Convert `d` to a standard Unicode JSON string. See the section about <a href="#json-serialization"><span>JSON serialization and deserialization</span></a>. Call the resulting string `d_json`.
 2.  Convert `d_json` to bytes (i.e. a sequence of bytes). See the section about <a href="#converting-strings-to-bytes"><span>converting strings to bytes</span></a>. Call the resulting bytes `d_bytes`.
@@ -637,7 +637,7 @@ There’s an IPDB-standard way to compute the signature of an <a href="#term-ass
 
 If a transaction satisfies the constraints (or rules) listed below, then it is considered valid. The process of checking those constraints is called transaction validation.
 
-Each version of the IPDB Transaction Spec may have different constraints. That is, the constraints may change from one version to the next. See the <a href="#versioning">section on versioning</a> and the <a href="#tx-version">section on transaction version</a>.
+Each version of the IPDB Transaction Spec may have different constraints. That is, the constraints may change from one version to the next. See the <a href="#versioning">section on versioning</a> and the <a href="#transaction-components-version">section on transaction version</a>.
 
 ### How Validation Code Decides Which Version to Use
 
@@ -663,7 +663,7 @@ If a transaction is a duplicate of a previous transaction, then it’s invalid. 
 
 #### The Transaction ID Rule
 
-The transaction ID (`id`) must be valid in that it must agree with the hash computed using the instructions given on <a href="#tx-transaction-id"><span>the section about transaction ID</span></a>.
+The transaction ID (`id`) must be valid in that it must agree with the hash computed using the instructions given on <a href="#transaction-components-transaction-id"><span>the section about transaction ID</span></a>.
 
 #### The TRANSFER Transaction Rules
 
@@ -682,7 +682,7 @@ Note: The first two rules prevent double spending.
 
 #### The input.fulfillment Rule
 
-Regardless of whether the transaction is a CREATE or TRANSFER transaction: For all inputs, `input.fulfillment` must be valid. See the <a href="#tx-inputs"><span>section about inputs</span></a> for more details about what that means.
+Regardless of whether the transaction is a CREATE or TRANSFER transaction: For all inputs, `input.fulfillment` must be valid. See the <a href="#transaction-components-inputs"><span>section about inputs</span></a> for more details about what that means.
 
 ## Implementation-Specific Deviations
 
@@ -692,7 +692,7 @@ Some implementations of IPDB-compliant servers or drivers deviate from the IPDB 
 
 <a href="https://github.com/bigchaindb/bigchaindb">BigchainDB Server</a> is an IPDB-compliant server implemented in Python.
 
-It allows <a href="#tx-operation"><span>operation</span></a> to have the value `"GENESIS"`, but only for transactions in the GENESIS block.
+It allows <a href="#transaction-components-operation"><span>operation</span></a> to have the value `"GENESIS"`, but only for transactions in the GENESIS block.
 
 When BigchainDB Server is used *with MongoDB*, it inherits some quirks from MongoDB:
 
@@ -719,9 +719,9 @@ A collection of key/value (or name/value) pairs such that each possible key appe
 
 In this document, when we say "list", we mean a finite ordered collection. Every programming language has one or more ways of handling those, e.g. lists, tuples or arrays. They are arrays in JSON.
 
-### null
+### ctnull
 
-`null` in JavaScript, JSON, Java and C#. `None` in Python. `nil` in Ruby and Go. If it’s a value in an associative array and you convert it to a JSON string, it should convert to `null` (with no quotes around it).
+Any value which, when converted to JSON, becomes `null`. "ctnull" is short for "converts to null." `null` in JavaScript, JSON, Java and C#. `None` in Python. `nil` in Ruby and Go.
 
 ------------------------------------------------------------------------
 
