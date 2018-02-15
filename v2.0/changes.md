@@ -1,5 +1,10 @@
 # Changes from v1.0 to v2.0
 
+## Allowed "version" value changes from "1.0" to "2.0"
+
+In v1.0, the only allowed value for the key "version" was "1.0".
+In v2.0, the only allowed value for the key "version" is "2.0".
+
 ## Hash-then-Fulfill to Fulfill-then-Hash
 
 In v1.0, the transaction ID was computed first, by hashing the transaction:
