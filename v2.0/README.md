@@ -55,7 +55,7 @@ In the rest of this document, "transaction" almost always means "IPDB transactio
 
 ## Versioning
 
-The IPDB Transaction Spec has several versions (e.g. version 1.0, version 2.0, etc.). Each one is documented completely in one Markdown file. For example, version 1.0 is documented in the file `v1.0/index.md`.
+The IPDB Transaction Spec has several versions (e.g. version 1.0, version 2.0, etc.). Each one is documented completely in one Markdown file. For example, version 1.0 is documented in the file `v1.0/README.md`.
 
 When is a new version created?
 
