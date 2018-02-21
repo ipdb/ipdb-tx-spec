@@ -480,7 +480,7 @@ Here's how you construct a valid transaction:
     ```
     Note how `unfulfilled_tx` includes a key-value pair for the `"id"` key. The value must be your <a href="#ctnull"><span>ctnull</span></a> (e.g. `None` in Python).
 
-9.  <a href="#json-serialization"><span>Convert unfulfilled_tx to an IPDB-standard JSON string</span></a> named `utx_json`.
+9.  <a href="#json-serialization-and-deserialization"><span>Convert unfulfilled_tx to an IPDB-standard JSON string</span></a> named `utx_json`.
 
 10. Create `inputs` as a deep copy of `unfulfilled_inputs`.
 
@@ -499,7 +499,7 @@ Here's how you construct a valid transaction:
 
 15. In `tx`, change the value of `"id"` to `computed_id`.
 
-The final result (`tx`) is a valid fulfilled transaction (in the form of an associative array). To put it in the body of an HTTP POST request, you’ll have to <a href="#json-serialization"><span>convert it to a JSON string</span></a>.
+The final result (`tx`) is a valid fulfilled transaction (in the form of an associative array). To put it in the body of an HTTP POST request, you’ll have to <a href="#json-serialization-and-deserialization"><span>convert it to a JSON string</span></a>.
 
 **Example Python Code**
 
@@ -592,7 +592,7 @@ Note: `sha3.sha3_256(json_bytes)` is an intermediate object of class `_pysha3.sh
 
 There’s an IPDB-standard way to compute the hash of an <a href="#associative-array"><span>associative array</span></a>. We’ve called that function `hash_of_aa()` elsewhere in this documentation. It takes an associative array `d` as input and returns a string as output. Here is what that function must do:
 
-1.  Convert `d` to a standard Unicode JSON string. See the section about <a href="#json-serialization"><span>JSON serialization and deserialization</span></a>. Call the resulting string `d_json`.
+1.  Convert `d` to a standard Unicode JSON string. See the section about <a href="#json-serialization-and-deserialization"><span>JSON serialization and deserialization</span></a>. Call the resulting string `d_json`.
 2.  Convert `d_json` to bytes (i.e. a sequence of bytes). See the section about <a href="#converting-strings-to-bytes"><span>converting strings to bytes</span></a>. Call the resulting bytes `d_bytes`.
 3.  Compute the SHA3-256 hash of `d_bytes` as outlined above, and represent the hash as a hexadecimal string.
 
@@ -635,7 +635,7 @@ The Python package <a href="https://pypi.python.org/pypi/BigchainDB">BigchainDB<
 
 There’s an IPDB-standard way to compute the signature of an <a href="#associative-array"><span>associative array</span></a>. We’ve called that function `sig_of_aa()` elsewhere in this documentation. It takes two inputs: an associative array `d` and a `private_key`. It returns a signature string as output. Here is what that function must do:
 
-1.  Convert `d` to a standard Unicode JSON string. See the section about <a href="#json-serialization"><span>JSON serialization and deserialization</span></a>. Call the resulting string `d_json`.
+1.  Convert `d` to a standard Unicode JSON string. See the section about <a href="#json-serialization-and-deserialization"><span>JSON serialization and deserialization</span></a>. Call the resulting string `d_json`.
 2.  Convert `d_json` to bytes (i.e. a sequence of bytes). See the section about <a href="#converting-strings-to-bytes"><span>converting strings to bytes</span></a>. Call the resulting bytes `d_bytes`.
 3.  Calculate the Ed25519 signature of `d_bytes` using the given `private_key`.
 
